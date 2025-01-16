@@ -3,212 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Школа операторов дронов АэрогениИ - профессиональное обучение управлению БПЛА">
-    <title>Школа операторов дронов АэрогениИ - Профессиональное обучение БПЛА</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>Персональный План Питания</title>
+    <style>
+        :root {
+            --primary: #9b4dca;
+            --dark: #1a1a1a;
+            --light: #f4f4f4;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(45deg, var(--dark), var(--primary));
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            background: var(--dark);
+            color: var(--light);
+            margin-top: 0.5rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: var(--light);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #nutritionPlan {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .plan-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .meal {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .contact-trainer {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-trainer a {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-trainer a:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm">
-        <nav class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <div class="text-2xl font-bold text-blue-600">АэрогениИ</div>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#" class="text-gray-600 hover:text-blue-600">Главная</a>
-                    <a href="#courses" class="text-gray-600 hover:text-blue-600">Курсы</a>
-                    <a href="#about" class="text-gray-600 hover:text-blue-600">О нас</a>
-                    <a href="#contact" class="text-gray-600 hover:text-blue-600">Контакты</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="bg-blue-600 text-white py-20">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">Станьте профессиональным оператором дрона</h1>
-                <p class="text-xl mb-8">Получите востребованную профессию в сфере БПЛА</p>
-                <a href="#contact" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
-                    Записаться на курс
-                </a>
+<body>
+    <div id="mainForm">
+        <div class="hero">
+            <div class="container">
+                <h1>Персональный План Питания</h1>
+                <p>Заполните форму для получения индивидуального рациона питания</p>
             </div>
         </div>
-    </section>
 
-    <!-- Features -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Почему выбирают нас</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4">Профессиональные преподаватели</h3>
-                    <p class="text-gray-600">Обучение проводят действующие операторы БПЛА с многолетним опытом</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4">Современное оборудование</h3>
-                    <p class="text-gray-600">Практика на актуальных моделях дронов различных классов</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4">Сертификация</h3>
-                    <p class="text-gray-600">По окончании курса выдаём официальный сертификат оператора БПЛА</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Courses -->
-    <section id="courses" class="bg-gray-100 py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Наши курсы</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4">Базовый курс оператора БПЛА</h3>
-                    <ul class="space-y-2 text-gray-600 mb-6">
-                        <li>• Основы управления дроном</li>
-                        <li>• Техника безопасности</li>
-                        <li>• 20 часов практики</li>
-                    </ul>
-                    <a href="#contact" class="text-blue-600 font-semibold hover:text-blue-700">Подробнее →</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-semibold mb-4">Продвинутый курс</h3>
-                    <ul class="space-y-2 text-gray-600 mb-6">
-                        <li>• Аэросъёмка</li>
-                        <li>• Промышленное применение</li>
-                        <li>• 40 часов практики</li>
-                    </ul>
-                    <a href="#contact" class="text-blue-600 font-semibold hover:text-blue-700">Подробнее →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-     <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Наша галерея</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Повторяющиеся блоки для фото -->
-                <div class="relative group">
-                    <img src="/api/placeholder/400/300" alt="Обучение БПЛА" class="w-full h-64 object-cover rounded-lg">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
-                        <span class="text-white text-lg font-semibold">Практические занятия</span>
+        <div class="container">
+            <div class="form-container">
+                <form id="nutritionForm" onsubmit="showNutritionPlan(event)">
+                    <div class="form-group">
+                        <label for="gender">Пол</label>
+                        <select id="gender" required>
+                            <option value="male">Мужской</option>
+                            <option value="female">Женский</option>
+                        </select>
                     </div>
-                </div>
-                <!-- Повторить блок для остальных фото -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Блог превью -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Последние статьи</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <article class="bg-white rounded-lg overflow-hidden shadow-sm">
-                    <img src="/api/placeholder/400/250" alt="Статья" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Как выбрать первый дрон</h3>
-                        <p class="text-gray-600 mb-4">Полное руководство для начинающих пилотов...</p>
-                        <a href="blog-post.html" class="text-blue-600 hover:text-blue-700">Читать далее →</a>
+                    <div class="form-group">
+                        <label for="age">Возраст</label>
+                        <input type="number" id="age" required min="18" max="100">
                     </div>
-                </article>
-                <!-- Повторить для других статей -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Расширенное описание курсов -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Наши программы обучения</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                    <img src="/api/placeholder/400/250" alt="Базовый курс" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-4">Базовый курс</h3>
-                        <ul class="space-y-2 text-gray-600 mb-6">
-                            <li>• Длительность: 2 недели</li>
-                            <li>• 20 часов практики</li>
-                            <li>• Основы управления</li>
-                            <li>• Сертификат</li>
-                        </ul>
-                        <a href="course-basic.html" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Подробнее</a>
+                    <div class="form-group">
+                        <label for="weight">Вес (кг)</label>
+                        <input type="number" id="weight" required min="40" max="200">
                     </div>
-                </div>
-                <!-- Повторить для других курсов -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Отзывы -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Отзывы выпускников</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <div class="flex items-center mb-4">
-                        <img src="/api/placeholder/60/60" alt="Фото" class="w-12 h-12 rounded-full">
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Александр П.</h4>
-                            <p class="text-gray-600">Выпускник 2024</p>
-                        </div>
+                    <div class="form-group">
+                        <label for="goal">Желаемый результат</label>
+                        <select id="goal" required>
+                            <option value="gain">Набор массы</option>
+                            <option value="loss">Снижение веса</option>
+                        </select>
                     </div>
-                    <p class="text-gray-600">Отличная школа! Научился управлять дроном с нуля за 2 недели...</p>
-                </div>
-                <!-- Повторить для других отзывов -->
-            </div>
-        </div>
-    </section>
 
-
-    <!-- Contact Form -->
-    <section id="contact" class="py-16">
-        <div class="container mx-auto px-4">
-            <div class="max-w-2xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-12">Записаться на курс</h2>
-                <form class="space-y-6">
-                    <div>
-                        <label class="block text-gray-700 mb-2">Ваше имя</label>
-                        <input type="text" class="w-full p-3 border rounded-lg" required>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Телефон</label>
-                        <input type="tel" class="w-full p-3 border rounded-lg" required>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Email</label>
-                        <input type="email" class="w-full p-3 border rounded-lg" required>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
-                        Отправить заявку
-                    </button>
+                    <button type="submit">Получить план питания</button>
                 </form>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">АэрогениИ</h3>
-                    <p class="text-gray-400">Профессиональное обучение операторов БПЛА</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Контакты</h3>
-                    <p class="text-gray-400">Телефон: +7 (XXX) XXX-XX-XX</p>
-                    <p class="text-gray-400">Email: info@aerogenii.ru</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Адрес</h3>
-                    <p class="text-gray-400">г. Москва, ул. Примерная, д. 123</p>
-                </div>
+    <div id="nutritionPlan" class="container">
+        <div class="plan-container">
+            <h2>Ваш персональный план питания</h2>
+            <div id="planContent"></div>
+            <div class="contact-trainer">
+                <a href="https://www.ddxfitness.ru/coaches/ddx-kazan-moki/" target="_blank">
+                    Связаться с тренером
+                </a>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <script>
+        const nutritionPlans = {
+            male: {
+                gain: {
+                    light: {
+                        title: "План набора массы (до 70 кг)",
+                        meals: [
+                            "Завтрак: Овсянка с протеином, бананом и орехами",
+                            "Перекус: Протеиновый коктейль с молоком",
+                            "Обед: Куриная грудка с рисом и овощами",
+                            "Перекус: Творог с медом и фруктами",
+                            "Ужин: Индейка с гречкой и овощами"
+                        ]
+                    },
+                    medium: {
+                        title: "План набора массы (70-85 кг)",
+                        meals: [
+                            "Завтрак: Яичный омлет с сыром и цельнозерновой хлеб",
+                            "Перекус: Гейнер с бананом",
+                            "Обед: Говядина с макаронами и овощами",
+                            "Перекус: Арахисовая паста с хлебцами",
+                            "Ужин: Лосось с картофелем и брокколи"
+                        ]
+                    },
+                    heavy: {
+                        title: "План набора массы (85+ кг)",
+                        meals: [
+                            "Завтрак: Протеиновые блинчики с творогом",
+                            "Перекус: Массгейнер с орехами",
+                            "Обед: Стейк с рисом и авокадо",
+                            "Перекус: Протеиновый батончик и банан",
+                            "Ужин: Курица с бататом и овощами"
+                        ]
+                    }
+                },
+                loss: {
+                    light: {
+                        title: "План снижения веса (до 70 кг)",
+                        meals: [
+                            "Завтрак: Омлет из белков с овощами",
+                            "Перекус: Яблоко с корицей",
+                            "Обед: Куриная грудка на гриле с салатом",
+                            "Перекус: Протеиновый коктейль",
+                            "Ужин: Рыба на пару с овощами"
+                        ]
+                    },
+                    medium: {
+                        title: "План снижения веса (70-85 кг)",
+                        meals: [
+                            "Завтрак: Творог с ягодами",
+                            "Перекус: Греческий йогурт",
+                            "Обед: Индейка с овощами",
+                            "Перекус: Морковь с хумусом",
+                            "Ужин: Тофу с брокколи"
+                        ]
+                    },
+                    heavy: {
+                        title: "План снижения веса (85+ кг)",
+                        meals: [
+                            "Завтрак: Протеиновый коктейль с овсянкой",
+                            "Перекус: Целлюлозный батончик",
+                            "Обед: Куриный суп с овощами",
+                            "Перекус: Огурцы с творогом",
+                            "Ужин: Белковый омлет с салатом"
+                        ]
+                    }
+                }
+            },
+            female: {
+                // Аналогичная структура для женского рациона
+                gain: {
+                    light: {
+                        title: "План набора массы (до 55 кг)",
+                        meals: [
+                            "Завтрак: Овсянка с ягодами и орехами",
+                            "Перекус: Протеиновый смузи",
+                            "Обед: Индейка с киноа",
+                            "Перекус: Греческий йогурт с медом",
+                            "Ужин: Рыба с овощами"
+                        ]
+                    },
+                    medium: {
+                        title: "План набора массы (55-70 кг)",
+                        meals: [
+                            "Завтрак: Цельнозерновой тост с авокадо",
+                            "Перекус: Банан с арахисовой пастой",
+                            "Обед: Курица с бурым рисом",
+                            "Перекус: Творожная запеканка",
+                            "Ужин: Омлет с овощами"
+                        ]
+                    },
+                    heavy: {
+                        title: "План набора массы (70+ кг)",
+                        meals: [
+                            "Завтрак: Протеиновые оладьи",
+                            "Перекус: Орехи и сухофрукты",
+                            "Обед: Лосось с гречкой",
+                            "Перекус: Протеиновый коктейль",
+                            "Ужин: Индейка с овощами"
+                        ]
+                    }
+                },
+                loss: {
+                    light: {
+                        title: "План снижения веса (до 55 кг)",
+                        meals: [
+                            "Завтрак: Смузи боул с ягодами",
+                            "Перекус: Зеленое яблоко",
+                            "Обед: Салат с тунцом",
+                            "Перекус: Морковные палочки",
+                            "Ужин: Куриная грудка на пару"
+                        ]
+                    },
+                    medium: {
+                        title: "План снижения веса (55-70 кг)",
+                        meals: [
+                            "Завтрак: Яичные белки с овощами",
+                            "Перекус: Протеиновый коктейль",
+                            "Обед: Индейка с салатом",
+                            "Перекус: Огурцы с творогом",
+                            "Ужин: Рыба на гриле"
+                        ]
+                    },
+                    heavy: {
+                        title: "План снижения веса (70+ кг)",
+                        meals: [
+                            "Завтрак: Обезжиренный творог",
+                            "Перекус: Сельдерей с хумусом",
+                            "Обед: Куриный суп",
+                            "Перекус: Зеленый чай",
+                            "Ужин: Тофу с овощами"
+                        ]
+                    }
+                }
+            }
+        };
+
+        function getWeightCategory(weight, gender) {
+            if (gender === 'male') {
+                if (weight < 70) return 'light';
+                if (weight < 85) return 'medium';
+                return 'heavy';
+            } else {
+                if (weight < 55) return 'light';
+                if (weight < 70) return 'medium';
+                return 'heavy';
+            }
+        }
+
+        function showNutritionPlan(event) {
+            event.preventDefault();
+            
+            const gender = document.getElementById('gender').value;
+            const weight = parseInt(document.getElementById('weight').value);
+            const goal = document.getElementById('goal').value;
+            
+            const category = getWeightCategory(weight, gender);
+            const plan = nutritionPlans[gender][goal][category];
+
+            const planContent = document.getElementById('planContent');
+            planContent.innerHTML = `
+                <h3>${plan.title}</h3>
+                ${plan.meals.map(meal => `
+                    <div class="meal">
+                        <p>${meal}</p>
+                    </div>
+                `).join('')}
+            `;
+
+            document.getElementById('mainForm').style.display = 'none';
+            document.getElementById('nutritionPlan').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
