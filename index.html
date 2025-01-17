@@ -1,230 +1,290 @@
-import React, { useState } from 'react';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select } from '@/components/ui/select';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система тестирования сотрудников</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .card {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card-header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #93c5fd;
+            cursor: not-allowed;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .radio-group {
+            margin-top: 8px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+        }
+        .error-item {
+            background-color: #fef2f2;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        .user-answer {
+            color: #dc2626;
+        }
+        .correct-answer {
+            color: #16a34a;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h1>Система тестирования сотрудников</h1>
+        </div>
+        
+        <!-- Step 1: Personal Data -->
+        <div id="step1" class="space-y-4">
+            <h2>Персональные данные</h2>
+            <input type="text" id="fullName" placeholder="Введите ФИО">
+            <button onclick="nextStep(1)" id="step1Button" disabled>Далее</button>
+        </div>
 
-const TestingApp = () => {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    position: '',
-    answers: [],
-  });
-  const [results, setResults] = useState(null);
-
-  // Пример данных о должностях
-  const positions = [
-    'Менеджер',
-    'Разработчик',
-    'Дизайнер',
-    'Аналитик',
-    'Тестировщик'
-  ];
-
-  // Пример вопросов теста
-  const questions = [
-    {
-      id: 1,
-      text: 'Какой метод HTTP используется для получения данных?',
-      options: ['GET', 'POST', 'PUT', 'DELETE'],
-      correctAnswer: 'GET'
-    },
-    {
-      id: 2,
-      text: 'Что такое SQL?',
-      options: [
-        'Язык структурированных запросов',
-        'Язык программирования',
-        'Фреймворк',
-        'Операционная система'
-      ],
-      correctAnswer: 'Язык структурированных запросов'
-    },
-    {
-      id: 3,
-      text: 'Что такое HTML?',
-      options: [
-        'Язык гипертекстовой разметки',
-        'Язык программирования',
-        'База данных',
-        'Протокол передачи данных'
-      ],
-      correctAnswer: 'Язык гипертекстовой разметки'
-    }
-  ];
-
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleAnswerSelect = (questionId, answer) => {
-    setFormData({
-      ...formData,
-      answers: [
-        ...formData.answers.filter(a => a.questionId !== questionId),
-        { questionId, answer }
-      ]
-    });
-  };
-
-  const calculateResults = () => {
-    const results = {
-      total: questions.length,
-      correct: 0,
-      incorrect: [],
-    };
-
-    formData.answers.forEach(answer => {
-      const question = questions.find(q => q.id === answer.questionId);
-      if (question.correctAnswer === answer.answer) {
-        results.correct += 1;
-      } else {
-        results.incorrect.push({
-          question: question.text,
-          userAnswer: answer.answer,
-          correctAnswer: question.correctAnswer
-        });
-      }
-    });
-
-    setResults(results);
-    setStep(4);
-  };
-
-  const renderStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Персональные данные</h2>
-            <Input
-              name="fullName"
-              placeholder="Введите ФИО"
-              value={formData.fullName}
-              onChange={handleInputChange}
-              className="w-full"
-            />
-            <Button 
-              onClick={() => setStep(2)}
-              disabled={!formData.fullName}
-              className="w-full"
-            >
-              Далее
-            </Button>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Выберите должность</h2>
-            <select
-              name="position"
-              value={formData.position}
-              onChange={handleInputChange}
-              className="w-full p-2 border rounded"
-            >
-              <option value="">Выберите должность</option>
-              {positions.map(pos => (
-                <option key={pos} value={pos}>{pos}</option>
-              ))}
+        <!-- Step 2: Position Selection -->
+        <div id="step2" class="space-y-4 hidden">
+            <h2>Выберите должность</h2>
+            <select id="position">
+                <option value="">Выберите должность</option>
+                <option value="Менеджер">Менеджер</option>
+                <option value="Разработчик">Разработчик</option>
+                <option value="Дизайнер">Дизайнер</option>
+                <option value="Аналитик">Аналитик</option>
+                <option value="Тестировщик">Тестировщик</option>
             </select>
-            <Button 
-              onClick={() => setStep(3)}
-              disabled={!formData.position}
-              className="w-full"
-            >
-              Начать тест
-            </Button>
-          </div>
-        );
+            <button onclick="nextStep(2)" id="step2Button" disabled>Начать тест</button>
+        </div>
 
-      case 3:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-xl font-bold">Тестирование</h2>
-            {questions.map(question => (
-              <div key={question.id} className="space-y-2">
-                <p className="font-medium">{question.text}</p>
-                <div className="space-y-2">
-                  {question.options.map(option => (
-                    <div key={option} className="flex items-center">
-                      <input
-                        type="radio"
-                        name={`question-${question.id}`}
-                        value={option}
-                        checked={formData.answers.some(a => 
-                          a.questionId === question.id && a.answer === option
-                        )}
-                        onChange={() => handleAnswerSelect(question.id, option)}
-                        className="mr-2"
-                      />
-                      <label>{option}</label>
+        <!-- Step 3: Testing -->
+        <div id="step3" class="space-y-6 hidden">
+            <h2>Тестирование</h2>
+            <div id="questions"></div>
+            <button onclick="calculateResults()" id="step3Button" disabled>Завершить тест</button>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div id="step4" class="space-y-4 hidden">
+            <h2>Результаты тестирования</h2>
+            <div id="results"></div>
+            <button onclick="resetTest()">Пройти тест заново</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                text: 'Какой метод HTTP используется для получения данных?',
+                options: ['GET', 'POST', 'PUT', 'DELETE'],
+                correctAnswer: 'GET'
+            },
+            {
+                id: 2,
+                text: 'Что такое SQL?',
+                options: [
+                    'Язык структурированных запросов',
+                    'Язык программирования',
+                    'Фреймворк',
+                    'Операционная система'
+                ],
+                correctAnswer: 'Язык структурированных запросов'
+            },
+            {
+                id: 3,
+                text: 'Что такое HTML?',
+                options: [
+                    'Язык гипертекстовой разметки',
+                    'Язык программирования',
+                    'База данных',
+                    'Протокол передачи данных'
+                ],
+                correctAnswer: 'Язык гипертекстовой разметки'
+            }
+        ];
+
+        let formData = {
+            fullName: '',
+            position: '',
+            answers: []
+        };
+
+        // Event listeners for input validation
+        document.getElementById('fullName').addEventListener('input', function(e) {
+            formData.fullName = e.target.value;
+            document.getElementById('step1Button').disabled = !formData.fullName;
+        });
+
+        document.getElementById('position').addEventListener('change', function(e) {
+            formData.position = e.target.value;
+            document.getElementById('step2Button').disabled = !formData.position;
+        });
+
+        // Navigation between steps
+        function showStep(stepNumber) {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+            }
+            document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+        }
+
+        function nextStep(currentStep) {
+            showStep(currentStep + 1);
+            if (currentStep === 2) {
+                renderQuestions();
+            }
+        }
+
+        // Render questions
+        function renderQuestions() {
+            const questionsContainer = document.getElementById('questions');
+            questionsContainer.innerHTML = questions.map(question => `
+                <div class="question">
+                    <p class="font-medium">${question.text}</p>
+                    <div class="radio-group">
+                        ${question.options.map(option => `
+                            <div class="radio-option">
+                                <input type="radio" 
+                                    name="question-${question.id}" 
+                                    value="${option}"
+                                    onchange="handleAnswerSelect(${question.id}, '${option}')"
+                                >
+                                <label>${option}</label>
+                            </div>
+                        `).join('')}
                     </div>
-                  ))}
                 </div>
-              </div>
-            ))}
-            <Button 
-              onClick={calculateResults}
-              disabled={formData.answers.length !== questions.length}
-              className="w-full"
-            >
-              Завершить тест
-            </Button>
-          </div>
-        );
+            `).join('');
+        }
 
-      case 4:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Результаты тестирования</h2>
-            <div>
-              <p className="font-medium">ФИО: {formData.fullName}</p>
-              <p className="font-medium">Должность: {formData.position}</p>
-              <p className="font-medium">
-                Правильных ответов: {results.correct} из {results.total}
-                ({((results.correct / results.total) * 100).toFixed(1)}%)
-              </p>
-            </div>
-            {results.incorrect.length > 0 && (
-              <div className="mt-4">
-                <h3 className="font-bold">Ошибки:</h3>
-                {results.incorrect.map((error, index) => (
-                  <div key={index} className="mt-2 p-2 bg-red-50 rounded">
-                    <p>Вопрос: {error.question}</p>
-                    <p className="text-red-500">Ваш ответ: {error.userAnswer}</p>
-                    <p className="text-green-500">Правильный ответ: {error.correctAnswer}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-            <Button 
-              onClick={() => {
-                setStep(1);
-                setFormData({ fullName: '', position: '', answers: [] });
-                setResults(null);
-              }}
-              className="w-full"
-            >
-              Пройти тест заново
-            </Button>
-          </div>
-        );
-    }
-  };
+        // Handle answer selection
+        function handleAnswerSelect(questionId, answer) {
+            formData.answers = formData.answers.filter(a => a.questionId !== questionId);
+            formData.answers.push({ questionId, answer });
+            document.getElementById('step3Button').disabled = formData.answers.length !== questions.length;
+        }
 
-  return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <h1 className="text-2xl font-bold text-center">Система тестирования сотрудников</h1>
-      </CardHeader>
-      <CardContent>
-        {renderStep()}
-      </CardContent>
-    </Card>
-  );
-};
+        // Calculate and display results
+        function calculateResults() {
+            const results = {
+                total: questions.length,
+                correct: 0,
+                incorrect: []
+            };
 
-export default TestingApp;
+            formData.answers.forEach(answer => {
+                const question = questions.find(q => q.id === answer.questionId);
+                if (question.correctAnswer === answer.answer) {
+                    results.correct += 1;
+                } else {
+                    results.incorrect.push({
+                        question: question.text,
+                        userAnswer: answer.answer,
+                        correctAnswer: question.correctAnswer
+                    });
+                }
+            });
+
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = `
+                <div>
+                    <p class="font-medium">ФИО: ${formData.fullName}</p>
+                    <p class="font-medium">Должность: ${formData.position}</p>
+                    <p class="font-medium">
+                        Правильных ответов: ${results.correct} из ${results.total}
+                        (${((results.correct / results.total) * 100).toFixed(1)}%)
+                    </p>
+                </div>
+                ${results.incorrect.length > 0 ? `
+                    <div class="mt-4">
+                        <h3>Ошибки:</h3>
+                        ${results.incorrect.map(error => `
+                            <div class="error-item">
+                                <p>Вопрос: ${error.question}</p>
+                                <p class="user-answer">Ваш ответ: ${error.userAnswer}</p>
+                                <p class="correct-answer">Правильный ответ: ${error.correctAnswer}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            `;
+
+            showStep(4);
+        }
+
+        // Reset test
+        function resetTest() {
+            formData = {
+                fullName: '',
+                position: '',
+                answers: []
+            };
+            document.getElementById('fullName').value = '';
+            document.getElementById('position').value = '';
+            document.getElementById('step1Button').disabled = true;
+            document.getElementById('step2Button').disabled = true;
+            document.getElementById('step3Button').disabled = true;
+            showStep(1);
+        }
+
+        // Initialize
+        showStep(1);
+    </script>
+</body>
+</html>
