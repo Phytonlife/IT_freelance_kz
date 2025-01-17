@@ -1,346 +1,230 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Персональный План Питания</title>
-    <style>
-        :root {
-            --primary: #9b4dca;
-            --dark: #1a1a1a;
-            --light: #f4f4f4;
-        }
+import React, { useState } from 'react';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select } from '@/components/ui/select';
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--dark);
-            color: var(--light);
-            min-height: 100vh;
-        }
+const TestingApp = () => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    position: '',
+    answers: [],
+  });
+  const [results, setResults] = useState(null);
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+  // Пример данных о должностях
+  const positions = [
+    'Менеджер',
+    'Разработчик',
+    'Дизайнер',
+    'Аналитик',
+    'Тестировщик'
+  ];
 
-        .hero {
-            text-align: center;
-            padding: 3rem 0;
-            background: linear-gradient(45deg, var(--dark), var(--primary));
-        }
+  // Пример вопросов теста
+  const questions = [
+    {
+      id: 1,
+      text: 'Какой метод HTTP используется для получения данных?',
+      options: ['GET', 'POST', 'PUT', 'DELETE'],
+      correctAnswer: 'GET'
+    },
+    {
+      id: 2,
+      text: 'Что такое SQL?',
+      options: [
+        'Язык структурированных запросов',
+        'Язык программирования',
+        'Фреймворк',
+        'Операционная система'
+      ],
+      correctAnswer: 'Язык структурированных запросов'
+    },
+    {
+      id: 3,
+      text: 'Что такое HTML?',
+      options: [
+        'Язык гипертекстовой разметки',
+        'Язык программирования',
+        'База данных',
+        'Протокол передачи данных'
+      ],
+      correctAnswer: 'Язык гипертекстовой разметки'
+    }
+  ];
 
-        .form-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            margin-top: 2rem;
-        }
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
+  const handleAnswerSelect = (questionId, answer) => {
+    setFormData({
+      ...formData,
+      answers: [
+        ...formData.answers.filter(a => a.questionId !== questionId),
+        { questionId, answer }
+      ]
+    });
+  };
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--light);
-        }
+  const calculateResults = () => {
+    const results = {
+      total: questions.length,
+      correct: 0,
+      incorrect: [],
+    };
 
-        input, select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid var(--primary);
-            border-radius: 5px;
-            background: var(--dark);
-            color: var(--light);
-            margin-top: 0.5rem;
-        }
+    formData.answers.forEach(answer => {
+      const question = questions.find(q => q.id === answer.questionId);
+      if (question.correctAnswer === answer.answer) {
+        results.correct += 1;
+      } else {
+        results.incorrect.push({
+          question: question.text,
+          userAnswer: answer.answer,
+          correctAnswer: question.correctAnswer
+        });
+      }
+    });
 
-        button {
-            background: var(--primary);
-            color: var(--light);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1.1rem;
-            transition: opacity 0.3s;
-        }
+    setResults(results);
+    setStep(4);
+  };
 
-        button:hover {
-            opacity: 0.9;
-        }
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return (
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold">Персональные данные</h2>
+            <Input
+              name="fullName"
+              placeholder="Введите ФИО"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              className="w-full"
+            />
+            <Button 
+              onClick={() => setStep(2)}
+              disabled={!formData.fullName}
+              className="w-full"
+            >
+              Далее
+            </Button>
+          </div>
+        );
 
-        #nutritionPlan {
-            display: none;
-            margin-top: 2rem;
-        }
+      case 2:
+        return (
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold">Выберите должность</h2>
+            <select
+              name="position"
+              value={formData.position}
+              onChange={handleInputChange}
+              className="w-full p-2 border rounded"
+            >
+              <option value="">Выберите должность</option>
+              {positions.map(pos => (
+                <option key={pos} value={pos}>{pos}</option>
+              ))}
+            </select>
+            <Button 
+              onClick={() => setStep(3)}
+              disabled={!formData.position}
+              className="w-full"
+            >
+              Начать тест
+            </Button>
+          </div>
+        );
 
-        .plan-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-        }
+      case 3:
+        return (
+          <div className="space-y-6">
+            <h2 className="text-xl font-bold">Тестирование</h2>
+            {questions.map(question => (
+              <div key={question.id} className="space-y-2">
+                <p className="font-medium">{question.text}</p>
+                <div className="space-y-2">
+                  {question.options.map(option => (
+                    <div key={option} className="flex items-center">
+                      <input
+                        type="radio"
+                        name={`question-${question.id}`}
+                        value={option}
+                        checked={formData.answers.some(a => 
+                          a.questionId === question.id && a.answer === option
+                        )}
+                        onChange={() => handleAnswerSelect(question.id, option)}
+                        className="mr-2"
+                      />
+                      <label>{option}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <Button 
+              onClick={calculateResults}
+              disabled={formData.answers.length !== questions.length}
+              className="w-full"
+            >
+              Завершить тест
+            </Button>
+          </div>
+        );
 
-        .meal {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            border-left: 3px solid var(--primary);
-        }
-
-        .contact-trainer {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .contact-trainer a {
-            display: inline-block;
-            background: var(--primary);
-            color: var(--light);
-            text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            transition: opacity 0.3s;
-        }
-
-        .contact-trainer a:hover {
-            opacity: 0.9;
-        }
-    </style>
-</head>
-<body>
-    <div id="mainForm">
-        <div class="hero">
-            <div class="container">
-                <h1>Персональный План Питания</h1>
-                <p>Заполните форму для получения индивидуального рациона питания</p>
+      case 4:
+        return (
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold">Результаты тестирования</h2>
+            <div>
+              <p className="font-medium">ФИО: {formData.fullName}</p>
+              <p className="font-medium">Должность: {formData.position}</p>
+              <p className="font-medium">
+                Правильных ответов: {results.correct} из {results.total}
+                ({((results.correct / results.total) * 100).toFixed(1)}%)
+              </p>
             </div>
-        </div>
+            {results.incorrect.length > 0 && (
+              <div className="mt-4">
+                <h3 className="font-bold">Ошибки:</h3>
+                {results.incorrect.map((error, index) => (
+                  <div key={index} className="mt-2 p-2 bg-red-50 rounded">
+                    <p>Вопрос: {error.question}</p>
+                    <p className="text-red-500">Ваш ответ: {error.userAnswer}</p>
+                    <p className="text-green-500">Правильный ответ: {error.correctAnswer}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            <Button 
+              onClick={() => {
+                setStep(1);
+                setFormData({ fullName: '', position: '', answers: [] });
+                setResults(null);
+              }}
+              className="w-full"
+            >
+              Пройти тест заново
+            </Button>
+          </div>
+        );
+    }
+  };
 
-        <div class="container">
-            <div class="form-container">
-                <form id="nutritionForm" onsubmit="showNutritionPlan(event)">
-                    <div class="form-group">
-                        <label for="gender">Пол</label>
-                        <select id="gender" required>
-                            <option value="male">Мужской</option>
-                            <option value="female">Женский</option>
-                        </select>
-                    </div>
+  return (
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader>
+        <h1 className="text-2xl font-bold text-center">Система тестирования сотрудников</h1>
+      </CardHeader>
+      <CardContent>
+        {renderStep()}
+      </CardContent>
+    </Card>
+  );
+};
 
-                    <div class="form-group">
-                        <label for="age">Возраст</label>
-                        <input type="number" id="age" required min="18" max="100">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="weight">Вес (кг)</label>
-                        <input type="number" id="weight" required min="40" max="200">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="goal">Желаемый результат</label>
-                        <select id="goal" required>
-                            <option value="gain">Набор массы</option>
-                            <option value="loss">Снижение веса</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Получить план питания</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="nutritionPlan" class="container">
-        <div class="plan-container">
-            <h2>Ваш персональный план питания</h2>
-            <div id="planContent"></div>
-            <div class="contact-trainer">
-                <a href="https://www.ddxfitness.ru/coaches/ddx-kazan-moki/" target="_blank">
-                    Связаться с тренером
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const nutritionPlans = {
-            male: {
-                gain: {
-                    light: {
-                        title: "План набора массы (до 70 кг)",
-                        meals: [
-                            "Завтрак: Овсянка с протеином, бананом и орехами",
-                            "Перекус: Протеиновый коктейль с молоком",
-                            "Обед: Куриная грудка с рисом и овощами",
-                            "Перекус: Творог с медом и фруктами",
-                            "Ужин: Индейка с гречкой и овощами"
-                        ]
-                    },
-                    medium: {
-                        title: "План набора массы (70-85 кг)",
-                        meals: [
-                            "Завтрак: Яичный омлет с сыром и цельнозерновой хлеб",
-                            "Перекус: Гейнер с бананом",
-                            "Обед: Говядина с макаронами и овощами",
-                            "Перекус: Арахисовая паста с хлебцами",
-                            "Ужин: Лосось с картофелем и брокколи"
-                        ]
-                    },
-                    heavy: {
-                        title: "План набора массы (85+ кг)",
-                        meals: [
-                            "Завтрак: Протеиновые блинчики с творогом",
-                            "Перекус: Массгейнер с орехами",
-                            "Обед: Стейк с рисом и авокадо",
-                            "Перекус: Протеиновый батончик и банан",
-                            "Ужин: Курица с бататом и овощами"
-                        ]
-                    }
-                },
-                loss: {
-                    light: {
-                        title: "План снижения веса (до 70 кг)",
-                        meals: [
-                            "Завтрак: Омлет из белков с овощами",
-                            "Перекус: Яблоко с корицей",
-                            "Обед: Куриная грудка на гриле с салатом",
-                            "Перекус: Протеиновый коктейль",
-                            "Ужин: Рыба на пару с овощами"
-                        ]
-                    },
-                    medium: {
-                        title: "План снижения веса (70-85 кг)",
-                        meals: [
-                            "Завтрак: Творог с ягодами",
-                            "Перекус: Греческий йогурт",
-                            "Обед: Индейка с овощами",
-                            "Перекус: Морковь с хумусом",
-                            "Ужин: Тофу с брокколи"
-                        ]
-                    },
-                    heavy: {
-                        title: "План снижения веса (85+ кг)",
-                        meals: [
-                            "Завтрак: Протеиновый коктейль с овсянкой",
-                            "Перекус: Целлюлозный батончик",
-                            "Обед: Куриный суп с овощами",
-                            "Перекус: Огурцы с творогом",
-                            "Ужин: Белковый омлет с салатом"
-                        ]
-                    }
-                }
-            },
-            female: {
-                // Аналогичная структура для женского рациона
-                gain: {
-                    light: {
-                        title: "План набора массы (до 55 кг)",
-                        meals: [
-                            "Завтрак: Овсянка с ягодами и орехами",
-                            "Перекус: Протеиновый смузи",
-                            "Обед: Индейка с киноа",
-                            "Перекус: Греческий йогурт с медом",
-                            "Ужин: Рыба с овощами"
-                        ]
-                    },
-                    medium: {
-                        title: "План набора массы (55-70 кг)",
-                        meals: [
-                            "Завтрак: Цельнозерновой тост с авокадо",
-                            "Перекус: Банан с арахисовой пастой",
-                            "Обед: Курица с бурым рисом",
-                            "Перекус: Творожная запеканка",
-                            "Ужин: Омлет с овощами"
-                        ]
-                    },
-                    heavy: {
-                        title: "План набора массы (70+ кг)",
-                        meals: [
-                            "Завтрак: Протеиновые оладьи",
-                            "Перекус: Орехи и сухофрукты",
-                            "Обед: Лосось с гречкой",
-                            "Перекус: Протеиновый коктейль",
-                            "Ужин: Индейка с овощами"
-                        ]
-                    }
-                },
-                loss: {
-                    light: {
-                        title: "План снижения веса (до 55 кг)",
-                        meals: [
-                            "Завтрак: Смузи боул с ягодами",
-                            "Перекус: Зеленое яблоко",
-                            "Обед: Салат с тунцом",
-                            "Перекус: Морковные палочки",
-                            "Ужин: Куриная грудка на пару"
-                        ]
-                    },
-                    medium: {
-                        title: "План снижения веса (55-70 кг)",
-                        meals: [
-                            "Завтрак: Яичные белки с овощами",
-                            "Перекус: Протеиновый коктейль",
-                            "Обед: Индейка с салатом",
-                            "Перекус: Огурцы с творогом",
-                            "Ужин: Рыба на гриле"
-                        ]
-                    },
-                    heavy: {
-                        title: "План снижения веса (70+ кг)",
-                        meals: [
-                            "Завтрак: Обезжиренный творог",
-                            "Перекус: Сельдерей с хумусом",
-                            "Обед: Куриный суп",
-                            "Перекус: Зеленый чай",
-                            "Ужин: Тофу с овощами"
-                        ]
-                    }
-                }
-            }
-        };
-
-        function getWeightCategory(weight, gender) {
-            if (gender === 'male') {
-                if (weight < 70) return 'light';
-                if (weight < 85) return 'medium';
-                return 'heavy';
-            } else {
-                if (weight < 55) return 'light';
-                if (weight < 70) return 'medium';
-                return 'heavy';
-            }
-        }
-
-        function showNutritionPlan(event) {
-            event.preventDefault();
-            
-            const gender = document.getElementById('gender').value;
-            const weight = parseInt(document.getElementById('weight').value);
-            const goal = document.getElementById('goal').value;
-            
-            const category = getWeightCategory(weight, gender);
-            const plan = nutritionPlans[gender][goal][category];
-
-            const planContent = document.getElementById('planContent');
-            planContent.innerHTML = `
-                <h3>${plan.title}</h3>
-                ${plan.meals.map(meal => `
-                    <div class="meal">
-                        <p>${meal}</p>
-                    </div>
-                `).join('')}
-            `;
-
-            document.getElementById('mainForm').style.display = 'none';
-            document.getElementById('nutritionPlan').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+export default TestingApp;
