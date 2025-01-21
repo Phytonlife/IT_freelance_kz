@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СтройКомпания - Аренда спецтехники</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Навигация -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div class="flex items-center py-4">
+                        <span class="font-bold text-2xl text-blue-900">СтройКомпания</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="index.html" class="py-4 px-2 text-blue-900 font-semibold border-b-2 border-blue-900">Проектирование</a>
+                        <a href="construction-company-website (2).html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-900 transition duration-300">Общестроительные работы</a>
+                        <a href="construction-company-website (3).html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-900 transition duration-300">Аренда спецтехники</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="tel:+78001234567" class="py-2 px-4 text-blue-900 font-semibold">8 (800) 123-45-67</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный баннер -->
+    <div class="relative bg-blue-900 h-96">
+        <img src="/api/placeholder/1920/600" alt="Аренда спецтехники" class="w-full h-full object-cover opacity-50">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Аренда спецтехники</h1>
+                <p class="text-xl text-white">Широкий парк современной строительной техники</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Преимущества -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Почему мы?</h2>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">⚡</div>
+                    <h3 class="text-xl font-semibold mb-2">Быстрая подача</h3>
+                    <p class="text-gray-600">Доставка техники на объект в течение 2-3 часов</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">💰</div>
+                    <h3 class="text-xl font-semibold mb-2">Выгодные цены</h3>
+                    <p class="text-gray-600">Гибкая система скидок при длительной аренде</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">🔧</div>
+                    <h3 class="text-xl font-semibold mb-2">Исправная техника</h3>
+                    <p class="text-gray-600">Регулярное ТО и контроль состояния</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">👨‍🔧</div>
+                    <h3 class="text-xl font-semibold mb-2">Опытные операторы</h3>
+                    <p class="text-gray-600">Профессиональные водители со стажем от 5 лет</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог техники -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Каталог техники</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="/api/placeholder/400/300" alt="Экскаватор" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Экскаваторы</h3>
+                        <p class="text-gray-600 mb-4">Колесные и гусеничные экскаваторы различной мощности</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-900 font-bold">от 1500 ₽/час</span>
+                            <button class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800">Заказать</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="/api/placeholder/400/300" alt="Кран" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Автокраны</h3>
+                        <p class="text-gray-600 mb-4">Автокраны грузоподъемностью от 14 до 50 тонн</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-900 font-bold">от 2000 ₽/час</span>
+                            <button class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800">Заказать</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="/api/placeholder/400/300" alt="Бульдозер" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Бульдозеры</h3>
+                        <p class="text-gray-600 mb-4">Бульдозеры различной мощности для любых работ</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-900 font-bold">от 1800 ₽/час</span>
+                            <button class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800">Заказать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Условия аренды -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Условия аренды</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Что включено в стоимость</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Доставка на объект</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Работа оператора</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Топливо</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-gray-600">Техническое обслуживание</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4">Необходимые документы</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="text-blue-900 mr-2">•</span>
+                            <span class="text-gray-600">Паспорт</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-blue-900 mr-2">•</span>
+                            <span class="text-gray-600">ИНН организации</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-blue-900 mr-2">•</span>
+                            <span class="text-gray-600">Доверенность (при необходимости)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма заказа -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Заказать технику</h2>
+            <form class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Ваше имя" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <input type="tel" placeholder="Ваш телефон" class="w-full p-3 border border-gray-300 rounded-lg">
+                </div>
+                <select class="w-full p-3 border border-gray-300 rounded-lg">
+                    <option value="">Выберите тип техники</option>
+                    <option value="excavator">Экскаватор</option>
+                    <option value="crane">Автокран</option>
+                    <option value="bulldozer">Бульдозер</option>
+                </select>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="date" placeholder="Дата аренды" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <input type="number" placeholder="Количество часов" class="w-full p-3 border border-gray-300 rounded-lg">
+                </div>
+                <textarea placeholder="Дополнительные требования" class="w-full p-3 border border-gray-300 rounded-lg h-32"></textarea>
+                <button class="w-full bg-blue-900 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition duration-300">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">СтройКомпания</h3>
+                    <p class="text-gray-400">Профессиональные строительные решения с 2010 года</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Контакты</h3>
+                    <p class="text-gray-400">Телефон: 8 (800) 123-45-67</p>
+                    <p class="text-gray-400">Email: info@stroykompania.ru</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Адрес</h3>
+                    <p class="text-gray-400">г. Москва, ул. Строительная, д. 1</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
