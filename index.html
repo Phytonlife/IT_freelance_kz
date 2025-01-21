@@ -3,288 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Система тестирования сотрудников</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .card {
-            background: white;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .card-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .card-header h1 {
-            font-size: 24px;
-            color: #333;
-        }
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
-        .space-y-6 > * + * {
-            margin-top: 1.5rem;
-        }
-        input[type="text"], select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:disabled {
-            background-color: #93c5fd;
-            cursor: not-allowed;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .radio-group {
-            margin-top: 8px;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-        }
-        .radio-option input[type="radio"] {
-            margin-right: 8px;
-        }
-        .error-item {
-            background-color: #fef2f2;
-            padding: 12px;
-            border-radius: 4px;
-            margin-top: 8px;
-        }
-        .user-answer {
-            color: #dc2626;
-        }
-        .correct-answer {
-            color: #16a34a;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>СтройКомпания - Проектирование</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="card">
-        <div class="card-header">
-            <h1>Система тестирования сотрудников</h1>
+<body class="bg-gray-50">
+    <!-- Навигация -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div class="flex items-center py-4">
+                        <span class="font-bold text-2xl text-blue-900">СтройКомпания</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a href="#" class="py-4 px-2 text-blue-900 font-semibold border-b-2 border-blue-900">Проектирование</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-900 transition duration-300">Общестроительные работы</a>
+                        <a href="#" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-900 transition duration-300">Аренда спецтехники</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="tel:+78001234567" class="py-2 px-4 text-blue-900 font-semibold">8 (800) 123-45-67</a>
+                </div>
+            </div>
         </div>
-        
-        <!-- Step 1: Personal Data -->
-        <div id="step1" class="space-y-4">
-            <h2>Персональные данные</h2>
-            <input type="text" id="fullName" placeholder="Введите ФИО">
-            <button onclick="nextStep(1)" id="step1Button" disabled>Далее</button>
-        </div>
+    </nav>
 
-        <!-- Step 2: Position Selection -->
-        <div id="step2" class="space-y-4 hidden">
-            <h2>Выберите должность</h2>
-            <select id="position">
-                <option value="">Выберите должность</option>
-                <option value="Менеджер">Менеджер</option>
-                <option value="Разработчик">Разработчик</option>
-                <option value="Дизайнер">Дизайнер</option>
-                <option value="Аналитик">Аналитик</option>
-                <option value="Тестировщик">Тестировщик</option>
-            </select>
-            <button onclick="nextStep(2)" id="step2Button" disabled>Начать тест</button>
-        </div>
-
-        <!-- Step 3: Testing -->
-        <div id="step3" class="space-y-6 hidden">
-            <h2>Тестирование</h2>
-            <div id="questions"></div>
-            <button onclick="calculateResults()" id="step3Button" disabled>Завершить тест</button>
-        </div>
-
-        <!-- Step 4: Results -->
-        <div id="step4" class="space-y-4 hidden">
-            <h2>Результаты тестирования</h2>
-            <div id="results"></div>
-            <button onclick="resetTest()">Пройти тест заново</button>
+    <!-- Главный баннер -->
+    <div class="relative bg-blue-900 h-96">
+        <img src="/api/placeholder/1920/600" alt="Проектирование зданий" class="w-full h-full object-cover opacity-50">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Проектирование</h1>
+                <p class="text-xl text-white">Профессиональные решения для вашего строительства</p>
+            </div>
         </div>
     </div>
 
-    <script>
-        const questions = [
-            {
-                id: 1,
-                text: 'Какой метод HTTP используется для получения данных?',
-                options: ['GET', 'POST', 'PUT', 'DELETE'],
-                correctAnswer: 'GET'
-            },
-            {
-                id: 2,
-                text: 'Что такое SQL?',
-                options: [
-                    'Язык структурированных запросов',
-                    'Язык программирования',
-                    'Фреймворк',
-                    'Операционная система'
-                ],
-                correctAnswer: 'Язык структурированных запросов'
-            },
-            {
-                id: 3,
-                text: 'Что такое HTML?',
-                options: [
-                    'Язык гипертекстовой разметки',
-                    'Язык программирования',
-                    'База данных',
-                    'Протокол передачи данных'
-                ],
-                correctAnswer: 'Язык гипертекстовой разметки'
-            }
-        ];
-
-        let formData = {
-            fullName: '',
-            position: '',
-            answers: []
-        };
-
-        // Event listeners for input validation
-        document.getElementById('fullName').addEventListener('input', function(e) {
-            formData.fullName = e.target.value;
-            document.getElementById('step1Button').disabled = !formData.fullName;
-        });
-
-        document.getElementById('position').addEventListener('change', function(e) {
-            formData.position = e.target.value;
-            document.getElementById('step2Button').disabled = !formData.position;
-        });
-
-        // Navigation between steps
-        function showStep(stepNumber) {
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById(`step${i}`).classList.add('hidden');
-            }
-            document.getElementById(`step${stepNumber}`).classList.remove('hidden');
-        }
-
-        function nextStep(currentStep) {
-            showStep(currentStep + 1);
-            if (currentStep === 2) {
-                renderQuestions();
-            }
-        }
-
-        // Render questions
-        function renderQuestions() {
-            const questionsContainer = document.getElementById('questions');
-            questionsContainer.innerHTML = questions.map(question => `
-                <div class="question">
-                    <p class="font-medium">${question.text}</p>
-                    <div class="radio-group">
-                        ${question.options.map(option => `
-                            <div class="radio-option">
-                                <input type="radio" 
-                                    name="question-${question.id}" 
-                                    value="${option}"
-                                    onchange="handleAnswerSelect(${question.id}, '${option}')"
-                                >
-                                <label>${option}</label>
-                            </div>
-                        `).join('')}
-                    </div>
+    <!-- Преимущества -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Наши преимущества</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">🏗️</div>
+                    <h3 class="text-xl font-semibold mb-2">Опытные специалисты</h3>
+                    <p class="text-gray-600">Команда профессионалов с опытом работы более 10 лет</p>
                 </div>
-            `).join('');
-        }
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">📋</div>
+                    <h3 class="text-xl font-semibold mb-2">Современные технологии</h3>
+                    <p class="text-gray-600">Использование передового ПО для проектирования</p>
+                </div>
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-blue-900 mb-4">⏱️</div>
+                    <h3 class="text-xl font-semibold mb-2">Точные сроки</h3>
+                    <p class="text-gray-600">Гарантированное соблюдение установленных сроков</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Handle answer selection
-        function handleAnswerSelect(questionId, answer) {
-            formData.answers = formData.answers.filter(a => a.questionId !== questionId);
-            formData.answers.push({ questionId, answer });
-            document.getElementById('step3Button').disabled = formData.answers.length !== questions.length;
-        }
+    <!-- Услуги -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Наши услуги</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Проектирование жилых зданий</h3>
+                    <p class="text-gray-600 mb-4">Разработка полного комплекта проектной документации для жилых домов любой сложности</p>
+                    <a href="#" class="text-blue-900 font-semibold hover:text-blue-700">Подробнее →</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Проектирование коммерческих объектов</h3>
+                    <p class="text-gray-600 mb-4">Создание проектов торговых центров, офисных зданий и промышленных объектов</p>
+                    <a href="#" class="text-blue-900 font-semibold hover:text-blue-700">Подробнее →</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Calculate and display results
-        function calculateResults() {
-            const results = {
-                total: questions.length,
-                correct: 0,
-                incorrect: []
-            };
+    <!-- Форма обратной связи -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Получить консультацию</h2>
+            <form class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Ваше имя" class="w-full p-3 border border-gray-300 rounded-lg">
+                    <input type="tel" placeholder="Ваш телефон" class="w-full p-3 border border-gray-300 rounded-lg">
+                </div>
+                <textarea placeholder="Ваше сообщение" class="w-full p-3 border border-gray-300 rounded-lg h-32"></textarea>
+                <button class="w-full bg-blue-900 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition duration-300">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
 
-            formData.answers.forEach(answer => {
-                const question = questions.find(q => q.id === answer.questionId);
-                if (question.correctAnswer === answer.answer) {
-                    results.correct += 1;
-                } else {
-                    results.incorrect.push({
-                        question: question.text,
-                        userAnswer: answer.answer,
-                        correctAnswer: question.correctAnswer
-                    });
-                }
-            });
-
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = `
+    <!-- Футер -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
                 <div>
-                    <p class="font-medium">ФИО: ${formData.fullName}</p>
-                    <p class="font-medium">Должность: ${formData.position}</p>
-                    <p class="font-medium">
-                        Правильных ответов: ${results.correct} из ${results.total}
-                        (${((results.correct / results.total) * 100).toFixed(1)}%)
-                    </p>
+                    <h3 class="text-xl font-semibold mb-4">СтройКомпания</h3>
+                    <p class="text-gray-400">Профессиональные строительные решения с 2010 года</p>
                 </div>
-                ${results.incorrect.length > 0 ? `
-                    <div class="mt-4">
-                        <h3>Ошибки:</h3>
-                        ${results.incorrect.map(error => `
-                            <div class="error-item">
-                                <p>Вопрос: ${error.question}</p>
-                                <p class="user-answer">Ваш ответ: ${error.userAnswer}</p>
-                                <p class="correct-answer">Правильный ответ: ${error.correctAnswer}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                ` : ''}
-            `;
-
-            showStep(4);
-        }
-
-        // Reset test
-        function resetTest() {
-            formData = {
-                fullName: '',
-                position: '',
-                answers: []
-            };
-            document.getElementById('fullName').value = '';
-            document.getElementById('position').value = '';
-            document.getElementById('step1Button').disabled = true;
-            document.getElementById('step2Button').disabled = true;
-            document.getElementById('step3Button').disabled = true;
-            showStep(1);
-        }
-
-        // Initialize
-        showStep(1);
-    </script>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Контакты</h3>
+                    <p class="text-gray-400">Телефон: 8 (800) 123-45-67</p>
+                    <p class="text-gray-400">Email: info@stroykompania.ru</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Адрес</h3>
+                    <p class="text-gray-400">г. Москва, ул. Строительная, д. 1</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
