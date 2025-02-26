@@ -3,585 +3,1311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Структура компании</title>
+    <title>С-Композит | Стеклопластиковые трубы высокого качества</title>
     <style>
+        /* Основные стили */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
         }
-        
+
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #004494;
+            --accent-color: #ff9900;
+            --light-gray: #f5f5f5;
+            --text-color: #333;
+            --white: #fff;
+        }
+
         body {
-            background-color: #f5f5f5;
-            padding: 20px;
+            color: var(--text-color);
+            line-height: 1.6;
         }
-        
+
+        img {
+            max-width: 100%;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
-        
-        h1 {
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e68a00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 40px;
             text-align: center;
-            margin-bottom: 30px;
-            color: #333;
+            position: relative;
+            color: var(--secondary-color);
         }
-        
-        .org-chart {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            overflow-x: auto;
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
         }
-        
-        .chart-container {
-            min-width: max-content;
-            padding: 20px;
+
+        /* Хедер */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .level {
+
+        .header-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
             align-items: center;
         }
-        
-        .connector {
-            width: 2px;
-            height: 20px;
-            background-color: #ccc;
-            margin: 5px 0;
+
+        .logo img {
+            height: 60px;
         }
-        
-        .horizontal-line {
-            width: 100%;
-            height: 2px;
-            background-color: #ccc;
-            margin-bottom: 20px;
+
+        .logo-text {
+            margin-left: 10px;
         }
-        
-        .employees-row {
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin: 0;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .contact-info {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .phone {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+
+        .phone:hover {
+            color: var(--accent-color);
+        }
+
+        .email {
+            font-size: 16px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .email:hover {
+            color: var(--accent-color);
+        }
+
+        /* Главный баннер */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Преимущества */
+        .advantages {
+            background-color: var(--light-gray);
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
-        
-        .employee-branch {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+
+        .advantage-item {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
         }
-        
-        .employee-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            width: 150px;
-            background-color: white;
+
+        .advantage-item:hover {
+            transform: translateY(-10px);
         }
-        
-        .employee-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .owner-card {
-            background-color: #f3e8fd;
-            border: 2px solid #8a3ffc;
-        }
-        
-        .manager-card {
-            background-color: #edf5ff;
-            border: 1px solid #78a9ff;
-        }
-        
-        .avatar {
+
+        .advantage-icon {
             width: 80px;
             height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-gray);
             border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid #e0e0e0;
-            margin-bottom: 10px;
         }
-        
-        .avatar img {
+
+        .advantage-icon i {
+            font-size: 40px;
+            color: var(--primary-color);
+        }
+
+        .advantage-item h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        /* Продукция */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 220px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        
-        .employee-name {
-            font-weight: 600;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 5px;
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
         }
-        
-        .employee-position {
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .product-info p {
+            margin-bottom: 20px;
             color: #666;
-            font-size: 12px;
-            text-align: center;
         }
-        
-        .badge {
-            display: inline-block;
-            margin-left: 5px;
+
+        /* Преимущества работы с нами */
+        .why-us {
+            background-color: var(--secondary-color);
+            color: var(--white);
         }
-        
-        .owner-badge {
-            color: #8a3ffc;
+
+        .why-us .section-title {
+            color: var(--white);
         }
-        
-        .manager-badge {
-            color: #0f62fe;
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
-        
-        /* Модальное окно */
-        .modal-overlay {
-            position: fixed;
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .feature-icon i {
+            color: var(--white);
+            font-size: 22px;
+        }
+
+        .feature-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* О компании */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text h3 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        /* Форма заявки */
+        .request-form {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .form-container {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-container .section-title {
+            margin-top: 0;
+            text-align: left;
+            font-size: 28px;
+        }
+
+        .form-container .section-title:after {
+            left: 0;
+            transform: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Галерея проектов */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 68, 148, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        
-        .modal {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
         }
-        
-        .close-button {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #666;
+
+        .gallery-overlay span {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            padding: 0 15px;
         }
-        
-        .profile-header {
+
+        /* Контакты */
+        .contacts {
+            background-color: var(--light-gray);
+        }
+
+        .contacts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info-block h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #e0e0e0;
+            align-items: flex-start;
             margin-bottom: 15px;
         }
-        
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .profile-name {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .profile-position {
-            color: #666;
-            font-size: 16px;
-        }
-        
-        .profile-details {
-            border-top: 1px solid #e0e0e0;
-            padding-top: 20px;
-        }
-        
-        .detail-row {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        
-        .detail-label {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .detail-value {
-            font-size: 14px;
-        }
-        
-        .detail-link {
-            color: #0f62fe;
-            text-decoration: none;
+
+        .contact-icon {
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
             display: flex;
             align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        
-        .detail-link:hover {
-            text-decoration: underline;
+
+        .contact-icon i {
+            color: white;
+            font-size: 20px;
         }
-        
-        .external-icon {
-            margin-left: 5px;
-            font-size: 12px;
+
+        .contact-text {
+            flex-grow: 1;
+        }
+
+        .contact-text strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-text a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-text a:hover {
+            color: var(--primary-color);
+        }
+
+        .map-container {
+            height: 400px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 40px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Адаптивная верстка */
+        @media (max-width: 991px) {
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .about-container,
+            .contacts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-block {
+                order: 2;
+            }
+
+            .map-container {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 15px;
+            }
+
+            .contact-info {
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .hero h2 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        /* Кнопка скролла наверх */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 900;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background-color: #e68a00;
+            transform: translateY(-3px);
+        }
+
+        /* Форма успешно отправлена */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-message h3 {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .success-message p {
+            margin-bottom: 20px;
+        }
+
+        /* Иконки FontAwesome */
+        .fa {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+
+        .fa-phone:before {
+            content: "📞";
+        }
+
+        .fa-envelope:before {
+            content: "✉️";
+        }
+
+        .fa-map-marker:before {
+            content: "📍";
+        }
+
+        .fa-clock:before {
+            content: "🕒";
+        }
+
+        .fa-check:before {
+            content: "✓";
+        }
+
+        .fa-recycle:before {
+            content: "♻️";
+        }
+
+        .fa-tint:before {
+            content: "💧";
+        }
+
+        .fa-bolt:before {
+            content: "⚡";
+        }
+
+        .fa-wrench:before {
+            content: "🔧";
+        }
+
+        .fa-leaf:before {
+            content: "🍃";
+        }
+
+        .fa-industry:before {
+            content: "🏭";
+        }
+
+        .fa-trophy:before {
+            content: "🏆";
+        }
+
+        .fa-thumbs-up:before {
+            content: "👍";
+        }
+
+        .fa-certificate:before {
+            content: "🏅";
+        }
+
+        .fa-arrow-up:before {
+            content: "↑";
         }
     </style>
 </head>
 <body>
+    <!-- Хедер -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="/api/placeholder/120/60" alt="С-Композит Логотип">
+                <div class="logo-text">
+                    <h1>С-КОМПОЗИТ</h1>
+                    <p>Стеклопластиковые трубы и решения</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <a href="tel:+74957771234" class="phone">+7 (495) 777-12-34</a>
+                <a href="mailto:info@s-kompozit.ru" class="email">info@s-kompozit.ru</a>
+                <button class="btn" id="headerCallBtn">Заказать звонок</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="hero">
+        <div class="container">
+            <h2>Стеклопластиковые трубы от производителя</h2>
+            <p>Современные решения для водоснабжения, канализации и промышленных объектов. Срок службы более 50 лет без коррозии и отложений.</p>
+            <a href="#request-form" class="btn">Получить коммерческое предложение</a>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="advantages">
+        <div class="container">
+            <h2 class="section-title">Преимущества стеклопластиковых труб</h2>
+            <div class="advantages-grid">
+                <div class="advantage-item">
+                    <div class="advantage-icon">
+                        <i class="fa fa-recycle"></i>
+                    </div>
+                    <h3>Долговечность</h3>
+                    <p>Срок службы более 50 лет без потери эксплуатационных качеств</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">
+                        <i class="fa fa-tint"></i>
+                    </div>
+                    <h3>Устойчивость к коррозии</h3>
+                    <p>Полностью устойчивы к коррозии и химическим воздействиям</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                    <h3>Легкий вес</h3>
+                    <p>В 4 раза легче стальных аналогов, что упрощает монтаж и транспортировку</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">
+                        <i class="fa fa-wrench"></i>
+                    </div>
+                    <h3>Простой монтаж</h3>
+                    <p>Быстрая и удобная сборка без сварочных работ</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">
+                        <i class="fa fa-leaf"></i>
+                    </div>
+                    <h3>Экологичность</h3>
+                    <p>Безопасны для окружающей среды и питьевой воды</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">
+                        <i class="fa fa-industry"></i>
+                    </div>
+                    <h3>Низкое гидравлическое сопротивление</h3>
+                    <p>Гладкая внутренняя поверхность предотвращает отложения</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Продукция -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Наша продукция</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/api/placeholder/400/220" alt="Трубы GRP">
+                    </div>
+                    <div class="product-info">
+                        <h3>Трубы GRP</h3>
+                        <p>Стеклопластиковые трубы для напорного и безнапорного применения диаметром от 200 до 3000 мм.</p>
+                        <button class="btn product-info-btn" data-product="Трубы GRP">Запросить информацию</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/api/placeholder/400/220" alt="Фитинги">
+                    </div>
+                    <div class="product-info">
+                        <h3>Фитинги и соединения</h3>
+                        <p>Колена, тройники, переходники и фланцевые соединения из стеклопластика для любых конфигураций.</p>
+                        <button class="btn product-info-btn" data-product="Фитинги и соединения">Запросить информацию</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="/api/placeholder/400/220" alt="Емкости">
+                    </div>
+                    <div class="product-info">
+                        <h3>Емкости и резервуары</h3>
+                        <p>Стеклопластиковые резервуары объемом от 1 до 200 м³ для хранения различных жидкостей.</p>
+                        <button class="btn product-info-btn" data-product="Емкости и резервуары">Запросить информацию</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества работы с нами -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Собственное производство</h3>
+                        <p>Полный цикл производства в России с контролем качества на всех этапах</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fa fa-thumbs-up"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Индивидуальные решения</h3>
+                        <p>Разработка и производство по техническому заданию заказчика</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fa fa-certificate"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Сертифицированная продукция</h3>
+                        <p>Вся продукция соответствует ГОСТ и имеет необходимые сертификаты</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Техническая поддержка</h3>
+                        <p>Сопровождение проектов и консультации на всех этапах</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- О компании -->
+<section class="about">
+    <div class="container about-container">
+        <div class="about-image">
+            <img src="/api/placeholder/570/400" alt="Производство С-Композит">
+        </div>
+        <div class="about-text">
+            <h3>О компании С-Композит</h3>
+            <p>Компания С-Композит – производитель высококачественных стеклопластиковых труб и изделий с многолетним опытом работы на российском рынке. Мы специализируемся на разработке и производстве современных композитных решений для водоснабжения, канализации, промышленных и инфраструктурных проектов.</p>
+            <p>Наше производство оснащено современным оборудованием, позволяющим выпускать продукцию с жесткими допусками по качеству, отвечающую всем отраслевым стандартам и требованиям заказчиков.</p>
+            <p>Мы гарантируем долговечность, надежность и экологическую безопасность нашей продукции.</p>
+            <a href="#request-form" class="btn">Связаться с нами</a>
+        </div>
+    </div>
+</section>
+
+<!-- Форма заявки -->
+<section class="request-form" id="request-form">
     <div class="container">
-        <h1>Структура компании</h1>
-        <div class="org-chart">
-            <div class="chart-container">
-                <!-- Уровень 1: Руководитель -->
-                <div class="level">
-                    <div class="employee-card owner-card" data-id="1">
-                        <div class="avatar">
-                            <img src="https://via.placeholder.com/150" alt="Иванов Иван Иванович">
-                        </div>
-                        <div class="employee-name">
-                            Иванов Иван Иванович
-                            <span class="badge owner-badge">👑</span>
-                        </div>
-                        <div class="employee-position">Генеральный директор</div>
-                    </div>
-                    <div class="connector"></div>
+        <div class="form-container">
+            <h2 class="section-title">Получить коммерческое предложение</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
                 </div>
-                
-                <!-- Уровень 2: Руководители отделов -->
-                <div class="horizontal-line"></div>
-                <div class="employees-row">
-                    <!-- Финансовый директор -->
-                    <div class="employee-branch">
-                        <div class="employee-card manager-card" data-id="2">
-                            <div class="avatar">
-                                <img src="https://via.placeholder.com/150" alt="Петров Петр Петрович">
-                            </div>
-                            <div class="employee-name">
-                                Петров Петр Петрович
-                                <span class="badge manager-badge">⭐</span>
-                            </div>
-                            <div class="employee-position">Финансовый директор</div>
-                        </div>
-                        <div class="connector"></div>
-                        
-                        <!-- Подчиненные финансового директора -->
-                        <div class="employees-row">
-                            <div class="employee-card" data-id="5">
-                                <div class="avatar">
-                                    <img src="https://via.placeholder.com/150" alt="Семенова Анна Викторовна">
-                                </div>
-                                <div class="employee-name">Семенова Анна Викторовна</div>
-                                <div class="employee-position">Главный бухгалтер</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Директор по маркетингу -->
-                    <div class="employee-branch">
-                        <div class="employee-card manager-card" data-id="3">
-                            <div class="avatar">
-                                <img src="https://via.placeholder.com/150" alt="Сидорова Елена Александровна">
-                            </div>
-                            <div class="employee-name">
-                                Сидорова Елена Александровна
-                                <span class="badge manager-badge">⭐</span>
-                            </div>
-                            <div class="employee-position">Директор по маркетингу</div>
-                        </div>
-                        <div class="connector"></div>
-                        
-                        <!-- Подчиненные директора по маркетингу -->
-                        <div class="employees-row">
-                            <div class="employee-card" data-id="6">
-                                <div class="avatar">
-                                    <img src="https://via.placeholder.com/150" alt="Николаев Алексей Дмитриевич">
-                                </div>
-                                <div class="employee-name">Николаев Алексей Дмитриевич</div>
-                                <div class="employee-position">SMM-менеджер</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Технический директор -->
-                    <div class="employee-branch">
-                        <div class="employee-card manager-card" data-id="4">
-                            <div class="avatar">
-                                <img src="https://via.placeholder.com/150" alt="Козлов Дмитрий Сергеевич">
-                            </div>
-                            <div class="employee-name">
-                                Козлов Дмитрий Сергеевич
-                                <span class="badge manager-badge">⭐</span>
-                            </div>
-                            <div class="employee-position">Технический директор</div>
-                        </div>
-                        <div class="connector"></div>
-                        
-                        <!-- Подчиненные технического директора -->
-                        <div class="employees-row">
-                            <div class="employee-card" data-id="7">
-                                <div class="avatar">
-                                    <img src="https://via.placeholder.com/150" alt="Морозова Ирина Владимировна">
-                                </div>
-                                <div class="employee-name">Морозова Ирина Владимировна</div>
-                                <div class="employee-position">Frontend-разработчик</div>
-                            </div>
-                            <div class="employee-card" data-id="8">
-                                <div class="avatar">
-                                    <img src="https://via.placeholder.com/150" alt="Волков Сергей Игоревич">
-                                </div>
-                                <div class="employee-name">Волков Сергей Игоревич</div>
-                                <div class="employee-position">Backend-разработчик</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="company">Название компании</label>
+                    <input type="text" id="company" name="company" class="form-control" required>
                 </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Описание проекта</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Опишите ваш проект или укажите необходимый диаметр и длину труб, количество и другие требования"></textarea>
+                </div>
+                <button type="submit" class="btn">Отправить заявку</button>
+                <p class="form-note">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
+            </form>
+            <div class="success-message" id="successMessage">
+                <h3>Спасибо за заявку!</h3>
+                <p>Мы свяжемся с вами в ближайшее время для уточнения деталей.</p>
+                <button class="btn" id="newRequestBtn">Отправить еще одну заявку</button>
             </div>
         </div>
     </div>
-    
-    <!-- Модальное окно для профиля сотрудника -->
-    <div class="modal-overlay" id="employeeModal">
-        <div class="modal">
-            <button class="close-button" id="closeModal">✕</button>
-            <div class="profile-header">
-                <div class="profile-avatar">
-                    <img id="profileAvatar" src="" alt="">
-                </div>
-                <h2 class="profile-name" id="profileName"></h2>
-                <p class="profile-position" id="profilePosition"></p>
-            </div>
-            <div class="profile-details">
-                <div class="detail-row">
-                    <span class="detail-label">Телеграм:</span>
-                    <a href="#" class="detail-value detail-link" id="profileTelegram">
-                        <span id="profileTelegramText"></span>
-                        <span class="external-icon">↗</span>
-                    </a>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Email:</span>
-                    <a href="#" class="detail-value detail-link" id="profileEmail">
-                        <span id="profileEmailText"></span>
-                    </a>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Телефон:</span>
-                    <a href="#" class="detail-value detail-link" id="profilePhone">
-                        <span id="profilePhoneText"></span>
-                    </a>
-                </div>
-                <div class="detail-row" id="departmentRow">
-                    <span class="detail-label">Отдел:</span>
-                    <span class="detail-value" id="profileDepartment"></span>
-                </div>
-                <div class="detail-row" id="managerRow">
-                    <span class="detail-label">Руководитель:</span>
-                    <span class="detail-value" id="profileManager"></span>
-                </div>
-            </div>
-        </div>
-    </div>
+</section>
 
-    <script>
-        // Данные сотрудников
-        const employeesData = [
-            {
-                id: 1,
-                name: "Иванов Иван Иванович",
-                position: "Генеральный директор",
-                photo: "https://via.placeholder.com/150",
-                email: "ivanov@company.ru",
-                phone: "+7 (999) 123-45-67",
-                telegram: "@ivanov_ceo",
-                isOwner: true
-            },
-            {
-                id: 2,
-                name: "Петров Петр Петрович",
-                position: "Финансовый директор",
-                photo: "https://via.placeholder.com/150",
-                email: "petrov@company.ru",
-                phone: "+7 (999) 234-56-78",
-                telegram: "@petrov_fin",
-                manager: "Иванов Иван Иванович",
-                department: "Финансовый отдел",
-                isManager: true
-            },
-            {
-                id: 3,
-                name: "Сидорова Елена Александровна",
-                position: "Директор по маркетингу",
-                photo: "https://via.placeholder.com/150",
-                email: "sidorova@company.ru",
-                phone: "+7 (999) 456-78-90",
-                telegram: "@sidorova_mkt",
-                manager: "Иванов Иван Иванович",
-                department: "Маркетинг",
-                isManager: true
-            },
-            {
-                id: 4,
-                name: "Козлов Дмитрий Сергеевич",
-                position: "Технический директор",
-                photo: "https://via.placeholder.com/150",
-                email: "kozlov@company.ru",
-                phone: "+7 (999) 678-90-12",
-                telegram: "@kozlov_cto",
-                manager: "Иванов Иван Иванович",
-                department: "IT отдел",
-                isManager: true
-            },
-            {
-                id: 5,
-                name: "Семенова Анна Викторовна",
-                position: "Главный бухгалтер",
-                photo: "https://via.placeholder.com/150",
-                email: "semenova@company.ru",
-                phone: "+7 (999) 345-67-89",
-                telegram: "@semenova_acc",
-                manager: "Петров Петр Петрович",
-                department: "Бухгалтерия"
-            },
-            {
-                id: 6,
-                name: "Николаев Алексей Дмитриевич",
-                position: "SMM-менеджер",
-                photo: "https://via.placeholder.com/150",
-                email: "nikolaev@company.ru",
-                phone: "+7 (999) 567-89-01",
-                telegram: "@nikolaev_smm",
-                manager: "Сидорова Елена Александровна",
-                department: "Маркетинг"
-            },
-            {
-                id: 7,
-                name: "Морозова Ирина Владимировна",
-                position: "Frontend-разработчик",
-                photo: "https://via.placeholder.com/150",
-                email: "morozova@company.ru",
-                phone: "+7 (999) 789-01-23",
-                telegram: "@morozova_dev",
-                manager: "Козлов Дмитрий Сергеевич",
-                department: "IT отдел"
-            },
-            {
-                id: 8,
-                name: "Волков Сергей Игоревич",
-                position: "Backend-разработчик",
-                photo: "https://via.placeholder.com/150",
-                email: "volkov@company.ru",
-                phone: "+7 (999) 890-12-34",
-                telegram: "@volkov_dev",
-                manager: "Козлов Дмитрий Сергеевич",
-                department: "IT отдел"
+<!-- Галерея проектов -->
+<section class="gallery">
+    <div class="container">
+        <h2 class="section-title">Реализованные проекты</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Проект 1" class="gallery-image">
+                <div class="gallery-overlay">
+                    <span>Водопровод в Московской области</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Проект 2" class="gallery-image">
+                <div class="gallery-overlay">
+                    <span>Канализационная система для жилого комплекса</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Проект 3" class="gallery-image">
+                <div class="gallery-overlay">
+                    <span>Промышленный трубопровод для химического завода</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Проект 4" class="gallery-image">
+                <div class="gallery-overlay">
+                    <span>Дренажная система для сельскохозяйственных угодий</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Проект 5" class="gallery-image">
+                <div class="gallery-overlay">
+                    <span>Водопровод для горнолыжного курорта</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/300" alt="Проект 6" class="gallery-image">
+                <div class="gallery-overlay">
+                    <span>Система очистных сооружений</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты -->
+<section class="contacts">
+    <div class="container">
+        <h2 class="section-title">Контакты</h2>
+        <div class="contacts-container">
+            <div class="contact-info-block">
+                <h3>Связаться с нами</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Телефон</strong>
+                            <a href="tel:+74957771234">+7 (495) 777-12-34</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Email</strong>
+                            <a href="mailto:info@s-kompozit.ru">info@s-kompozit.ru</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Адрес</strong>
+                            <p>142700, Московская область, г. Видное, Промзона</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fa fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Время работы</strong>
+                            <p>Пн-Пт: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="map-container">
+                <!-- Здесь будет карта (плейсхолдер) -->
+                <img src="/api/placeholder/600/400" alt="Карта проезда">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Футер -->
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>О компании</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#advantages">Преимущества</a></li>
+                    <li><a href="#gallery">Проекты</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Продукция</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Трубы GRP</a></li>
+                    <li><a href="#">Фитинги и соединения</a></li>
+                    <li><a href="#">Емкости и резервуары</a></li>
+                    <li><a href="#">Индивидуальные заказы</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Документация</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Каталог продукции</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                    <li><a href="#">Техническая документация</a></li>
+                    <li><a href="#">Инструкции по монтажу</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+74957771234">+7 (495) 777-12-34</a></li>
+                    <li><a href="mailto:info@s-kompozit.ru">info@s-kompozit.ru</a></li>
+                    <li>142700, Московская область, г. Видное, Промзона</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 С-Композит. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Модальное окно -->
+<div class="modal" id="callbackModal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <h3 class="modal-title">Заказать обратный звонок</h3>
+        <form id="callbackForm">
+            <div class="form-group">
+                <label for="callbackName">Ваше имя</label>
+                <input type="text" id="callbackName" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="callbackPhone">Телефон</label>
+                <input type="tel" id="callbackPhone" name="phone" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="callTime">Удобное время для звонка</label>
+                <input type="text" id="callTime" name="callTime" class="form-control" placeholder="Например: 14:00-17:00">
+            </div>
+            <button type="submit" class="btn">Заказать звонок</button>
+            <p class="form-note">Нажимая на кнопку, вы даете согласие на обработку персональных данных</p>
+        </form>
+    </div>
+</div>
+
+<!-- Кнопка скролла наверх -->
+<div class="scroll-top" id="scrollTop">
+    <i class="fa fa-arrow-up"></i>
+</div>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Модальное окно
+        const modal = document.getElementById('callbackModal');
+        const headerCallBtn = document.getElementById('headerCallBtn');
+        const closeModal = document.getElementById('closeModal');
+        
+        headerCallBtn.addEventListener('click', function() {
+            modal.classList.add('show');
+        });
+        
+        closeModal.addEventListener('click', function() {
+            modal.classList.remove('show');
+        });
+        
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.remove('show');
             }
-        ];
-
-        // Получаем элементы модального окна
-        const modal = document.getElementById('employeeModal');
-        const closeModalBtn = document.getElementById('closeModal');
-        const profileAvatar = document.getElementById('profileAvatar');
-        const profileName = document.getElementById('profileName');
-        const profilePosition = document.getElementById('profilePosition');
-        const profileTelegram = document.getElementById('profileTelegram');
-        const profileTelegramText = document.getElementById('profileTelegramText');
-        const profileEmail = document.getElementById('profileEmail');
-        const profileEmailText = document.getElementById('profileEmailText');
-        const profilePhone = document.getElementById('profilePhone');
-        const profilePhoneText = document.getElementById('profilePhoneText');
-        const profileDepartment = document.getElementById('profileDepartment');
-        const profileManager = document.getElementById('profileManager');
-        const departmentRow = document.getElementById('departmentRow');
-        const managerRow = document.getElementById('managerRow');
-
-        // Получаем все карточки сотрудников
-        const employeeCards = document.querySelectorAll('.employee-card');
-
-        // Добавляем обработчики событий для карточек
-        employeeCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const employeeId = parseInt(card.getAttribute('data-id'));
-                const employee = employeesData.find(emp => emp.id === employeeId);
-                if (employee) {
-                    showEmployeeProfile(employee);
+        });
+        
+        // Кнопка "наверх"
+        const scrollBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+        
+        scrollBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Обработка форм
+        const contactForm = document.getElementById('contactForm');
+        const callbackForm = document.getElementById('callbackForm');
+        const successMessage = document.getElementById('successMessage');
+        const newRequestBtn = document.getElementById('newRequestBtn');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Здесь код для отправки формы в AmoCRM
+                // В рамках прототипа просто показываем сообщение об успехе
+                contactForm.style.display = 'none';
+                successMessage.style.display = 'block';
+            });
+        }
+        
+        if (callbackForm) {
+            callbackForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Здесь код для отправки формы в AmoCRM
+                // В рамках прототипа просто закрываем модальное окно
+                alert('Спасибо! Мы перезвоним вам в ближайшее время.');
+                modal.classList.remove('show');
+            });
+        }
+        
+        if (newRequestBtn) {
+            newRequestBtn.addEventListener('click', function() {
+                successMessage.style.display = 'none';
+                contactForm.style.display = 'block';
+                contactForm.reset();
+            });
+        }
+        
+        // Кнопки запроса информации о продукции
+        const productButtons = document.querySelectorAll('.product-info-btn');
+        
+        productButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const product = this.getAttribute('data-product');
+                const messageField = document.getElementById('message');
+                
+                // Прокручиваем к форме и заполняем поле сообщения
+                document.querySelector('#request-form').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                if (messageField) {
+                    messageField.value = `Меня интересует продукция: ${product}. Пожалуйста, пришлите дополнительную информацию.`;
+                    messageField.focus();
                 }
             });
         });
-
-        // Закрытие модального окна
-        closeModalBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
+        
+        // Плавная прокрутка для всех якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
-
-        // Закрытие при клике вне модального окна
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Функция отображения профиля сотрудника
-        function showEmployeeProfile(employee) {
-            // Заполняем данные сотрудника
-            profileAvatar.src = employee.photo;
-            profileAvatar.alt = employee.name;
-            profileName.textContent = employee.name;
-            profilePosition.textContent = employee.position;
-            
-            // Телеграм
-            profileTelegramText.textContent = employee.telegram;
-            profileTelegram.href = `https://t.me/${employee.telegram.replace('@', '')}`;
-            
-            // Email
-            profileEmailText.textContent = employee.email;
-            profileEmail.href = `mailto:${employee.email}`;
-            
-            // Телефон
-            profilePhoneText.textContent = employee.phone;
-            profilePhone.href = `tel:${employee.phone.replace(/\D/g, '')}`;
-            
-            // Отдел
-            if (employee.department) {
-                profileDepartment.textContent = employee.department;
-                departmentRow.style.display = 'grid';
-            } else {
-                departmentRow.style.display = 'none';
-            }
-            
-            // Руководитель
-            if (employee.manager) {
-                profileManager.textContent = employee.manager;
-                managerRow.style.display = 'grid';
-            } else {
-                managerRow.style.display = 'none';
-            }
-            
-            // Показываем модальное окно
-            modal.style.display = 'flex';
-        }
-    </script>
+    });
+</script>
 </body>
 </html>
