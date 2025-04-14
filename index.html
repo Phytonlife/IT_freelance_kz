@@ -1,156 +1,1404 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>С 8 марта, мама Седа!</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffe6f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фриланс с ИИ за месяц | IT-курсы в Атырау</title>
+  <meta name="description" content="Научись программировать с ИИ за 4 недели и начни зарабатывать на фрилансе с гарантией возврата!">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;600;700&display=swap');
 
-        /* Стили для шапки с венком как фон на всю страницу */
-        .header-wreath {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh; /* Растягиваем на всю высоту экрана */
-            background: url('http://pm1.aminoapps.com/7073/402d915833c7c0c11eaf37bc93779ac186550425r1-1084-650v2_hq.jpg') center/cover no-repeat;
-            z-index: 0; /* Помещаем фон под все элементы */
-            overflow: hidden;
-        }
+    :root {
+      --primary: #6C63FF;
+      --secondary: #4ECDC4;
+      --accent: #FF6B6B;
+      --dark: #2D2D3A;
+      --light: #F7F9FC;
+    }
 
-        .flower-decor {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 51, 102, 0.2), transparent),
-                radial-gradient(circle at 80% 70%, rgba(255, 153, 204, 0.2), transparent);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .flower {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: url('https://cdn.pixabay.com/photo/2016/08/31/16/52/flower-1634139_960_720.png');
-            background-size: contain;
-            animation: float 4s infinite ease-in-out;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
 
-        .flower:nth-child(2n) {
-            width: 40px;
-            height: 40px;
-            animation-duration: 3s;
-        }
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+    }
 
-        .flower:nth-child(3n) {
-            width: 80px;
-            height: 80px;
-            animation-duration: 5s;
-        }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(20px) rotate(15deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 0;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон для читаемости */
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 1; /* Контейнер поверх фона */
-        }
+    header.scrolled {
+      background-color: rgba(45, 45, 58, 0.95);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
 
-        h1 {
-            color: #ff6699;
-            font-size: 36px;
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        p {
-            color: #333;
-            font-size: 20px;
-            line-height: 1.5;
-        }
+    .logo {
+      display: flex;
+      align-items: center;
+      color: var(--light);
+      text-decoration: none;
+    }
 
-        .heart {
-            color: #ff3366;
-            font-size: 24px;
-        }
+    .logo h2 {
+      font-size: 1.8rem;
+      margin-left: 10px;
+    }
 
-        audio {
-            margin-top: 20px;
-            width: 100%;
-        }
+    .logo-icon {
+      font-size: 2rem;
+      color: var(--accent);
+    }
 
-        .dancing-image {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            animation: dance 3s infinite ease-in-out;
-            z-index: 1; /* Картинки поверх фона */
-        }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
 
-        #img1 { top: 20%; left: 10%; }
-        #img2 { top: 20%; right: 10%; }
-        #img3 { bottom: 10%; left: 10%; }
-        #img4 { bottom: 10%; right: 10%; }
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
 
-        @keyframes dance {
-            0% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(10deg); }
-            50% { transform: translateY(0) rotate(0deg); }
-            75% { transform: translateY(-20px) rotate(-10deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
-    </style>
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+    }
+
+    /* Hero Section */
+    #hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background-color: var(--dark);
+    }
+
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: var(--light);
+      width: 100%;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .floating-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.6;
+      animation: float 15s infinite linear;
+    }
+
+    .shape.circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), transparent);
+      top: 15%;
+      right: 20%;
+    }
+
+    .shape.square {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(45deg, var(--secondary), transparent);
+      top: 60%;
+      left: 10%;
+      transform: rotate(45deg);
+    }
+
+    .shape.triangle {
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 120px solid rgba(255, 107, 107, 0.5);
+      bottom: 20%;
+      right: 15%;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+      }
+      100% {
+        transform: translateY(0) rotate(360deg);
+      }
+    }
+
+    /* About Section */
+    #about {
+      padding: 120px 0;
+      background-color: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+      height: 400px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .about-content p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .bg-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .bg-shapes .shape {
+      opacity: 0.05;
+      filter: blur(3px);
+    }
+
+    /* Programs Section */
+    #programs {
+      padding: 120px 0;
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .section-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .program-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .program-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .program-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(78, 205, 196, 0.1) 0%, transparent 70%);
+      z-index: -1;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .program-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+
+    .program-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .program-card p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .learn-more {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.3s ease;
+    }
+
+    .learn-more:hover {
+      gap: 10px;
+    }
+
+    /* Features Section */
+    #features {
+      padding: 120px 0;
+      background-color: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .features-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .feature:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .feature-content {
+      flex: 1;
+    }
+
+    .feature-content h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .feature-content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .feature-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .feature-box {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .feature-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .feature-box.circle {
+      border-radius: 50%;
+      aspect-ratio: 1/1;
+    }
+
+    .feature-box.hexagon {
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    }
+
+    .feature-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.3), rgba(78, 205, 196, 0.3));
+      pointer-events: none;
+    }
+
+    /* Testimonials Section */
+    #testimonials {
+      padding: 120px 0;
+      background-color: var(--dark);
+      color: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials-slider {
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .slider-wrapper {
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      padding: 0 20px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .quote-icon {
+      font-size: 2rem;
+      color: var(--secondary);
+      opacity: 0.5;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .testimonial-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .author-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .author-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .author-info p {
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    .slider-controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 20px;
+    }
+
+    .slider-button {
+      background: transparent;
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .slider-button:hover {
+      background-color: var(--secondary);
+      color: var(--dark);
+    }
+
+    /* Pricing Section */
+    #pricing {
+      padding: 120px 0;
+      background-color: var(--light);
+    }
+
+    .pricing-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .pricing-card {
+      background-color: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .pricing-card.featured::before {
+      content: 'САМЫЙ ПОПУЛЯРНЫЙ';
+      position: absolute;
+      top: 15px;
+      right: -35px;
+      background-color: var(--accent);
+      color: white;
+      padding: 5px 40px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      transform: rotate(45deg);
+    }
+
+    .price-category {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .price {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 5px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .price-period {
+      display: block;
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .price-features {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .price-features li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+      list-style: none;
+    }
+
+    .price-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+    }
+
+    .pricing-card.featured .price-features li::before {
+      color: white;
+    }
+
+    .pricing-button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+    }
+
+    .pricing-card.featured .pricing-button {
+      background: white;
+      color: var(--primary);
+    }
+
+    .pricing-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+    }
+
+    /* Contact Section */
+    #contact {
+      padding: 120px 0;
+      background-color: var(--dark);
+      color: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .contact-info h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-size: 1.2rem;
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--secondary);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .submit-button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1A1A24;
+      padding: 60px 0 30px;
+      color: var(--light);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      color: var(--light);
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo h3 {
+      font-size: 1.5rem;
+      margin-left: 10px;
+    }
+
+    .footer-text {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-links h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+
+    .footer-menu {
+      list-style: none;
+    }
+
+    .footer-menu li {
+      margin-bottom: 10px;
+    }
+
+    .footer-menu a {
+      color: var(--light);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-menu a:hover {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 1024px) {
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        flex-direction: column !important;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Шапка с венком как фон -->
-    <div class="header-wreath">
-        <div class="flower-decor">
-            <div class="flower" style="left: 5%; top: 10%;"></div>
-            <div class="flower" style="left: 15%; top: 50%;"></div>
-            <div class="flower" style="left: 25%; top: 20%;"></div>
-            <div class="flower" style="left: 35%; top: 60%;"></div>
-            <div class="flower" style="left: 45%; top: 30%;"></div>
-            <div class="flower" style="left: 55%; top: 70%;"></div>
-            <div class="flower" style="left: 65%; top: 40%;"></div>
-            <div class="flower" style="left: 75%; top: 20%;"></div>
-            <div class="flower" style="left: 85%; top: 60%;"></div>
-            <div class="flower" style="left: 95%; top: 30%;"></div>
-        </div>
-    </div>
-
+  <!-- Header -->
+  <header>
     <div class="container">
-        <h1>Дорогая мама Седа!</h1>
-        <p>Поздравляю тебя с 8 марта! <br>
-           Ты самая замечательная мама в мире, и я благодарю тебя за всё, что ты для меня делаешь. <br>
-           Желаю тебе счастья, здоровья и море цветов! <br>
-           Люблю тебя бесконечно! <span class="heart">❤</span></p>
-        <audio controls>
-            <source src="для мамы (1).mp3">
-            Ваш браузер не поддерживает аудио.
-        </audio>
+      <nav class="navbar">
+        <a href="#" class="logo">
+          <div class="logo-icon"><i class="fas fa-code"></i></div>
+          <h2>IT Freelance KZ</h2>
+        </a>
+        <div class="nav-links">
+          <a href="#about">Почему мы</a>
+          <a href="#programs">Программа</a>
+          <a href="#features">Преимущества</a>
+          <a href="#testimonials">Отзывы</a>
+          <a href="#pricing">Тарифы</a>
+          <a href="#contact">Контакты</a>
+        </div>
+        <button class="cta-button">Оставить заявку</button>
+      </nav>
     </div>
+  </header>
 
-    <!-- Анимационные картинки -->
-    <img id="img1" class="dancing-image" src="DALL·E 2025-03-06 13.56.34 - A cheerful cartoon-style illustration of a 14-year-old child giving a bouquet of colorful flowers to their beautiful mother. The mother looks happy an.webp" alt="Цветок 1">
-    <img id="img2" class="dancing-image" src="DALL·E 2025-03-06 13.56.37 - A cheerful cartoon-style illustration of a 14-year-old child giving a bouquet of colorful flowers to their beautiful mother. The mother looks happy an.webp" alt="Цветок 2">
-    <img id="img3" class="dancing-image" src="DALL·E 2025-03-06 14.13.37 - A vibrant cartoon-style illustration of a 14-year-old child joyfully presenting a bouquet of colorful flowers to their loving mother. The mother smile.webp" alt="Цветок 3">
-    <img id="img4" class="dancing-image" src="DALL·E 2025-03-06 14.15.25 - A beautiful and vibrant illustration of a bouquet of roses and various colorful flowers alongside a festive cake. The roses are fresh and detailed, wi.webp" alt="Цветок 4">
+  <!-- Hero Section -->
+  <section id="hero">
+    <div id="canvas-container"></div>
+    <div class="floating-shapes">
+      <div class="shape circle"></div>
+      <div class="shape square"></div>
+      <div class="shape triangle"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Стань фрилансером за месяц с ИИ!</h1>
+        <p>Научись создавать сайты, мобильные приложения и боты с помощью нейросетей. Получи поддержку до первого заказа и гарантию возврата!</p>
+        <button class="cta-button">Записаться на вебинар</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="bg-shapes">
+      <div class="shape circle" style="top: 20%; left: 10%;"></div>
+      <div class="shape square" style="bottom: 30%; right: 15%;"></div>
+    </div>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="/api/placeholder/600/400" alt="Фрилансер за работой">
+        </div>
+        <div class="about-content">
+          <h2>Почему IT Freelance KZ?</h2>
+          <p>Мы верим в силу <span class="highlight">ИИ и фриланса</span>. Наш курс помогает новичкам из Атырау и Казахстана освоить программирование за 4 недели.</p>
+          <p>С помощью <span class="highlight">Python, Django, Flutter</span> и нейросетей (ChatGPT, Codeium) ты создашь проекты для портфолио и начнешь зарабатывать на Upwork.</p>
+          <p>Наши менторы поддержат тебя до первого заказа, а гарантия возврата защитит твои вложения, если ты не освоишь навыки.</p>
+          <button class="cta-button">Узнать больше</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section id="programs">
+    <div class="container">
+      <div class="section-header">
+        <h2>Программа курса</h2>
+        <p>Четыре недели, чтобы стать фрилансером с ИИ</p>
+      </div>
+      <div class="programs-grid">
+        <div class="program-card">
+          <div class="program-icon">
+            <i class="fab fa-python"></i>
+          </div>
+          <h3>Python + ИИ</h3>
+          <p>Для новичков! Освой Python и создай программы и боты, заложив базу для фриланса.</p>
+          <a href="#" class="learn-more">Узнать больше <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Веб-разработка</h3>
+          <p>Создай красивые сайты лендинги и большой интернет магазин с базами данных и админкой.</p>
+          <a href="#" class="learn-more">Узнать больше <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Мобильные приложения</h3>
+          <p>Сделай мобильное приложение для Android и iOS легко.</p>
+          <a href="#" class="learn-more">Узнать больше <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h3>Фриланс с ИИ</h3>
+          <p>Научись находить заказы на Kwork и Upwork.</p>
+          <a href="#" class="learn-more">Узнать больше <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Почему наш курс особенный</h2>
+        <p>Что делает обучение с нами эффективным</p>
+      </div>
+      <div class="features-wrapper">
+        <div class="feature">
+          <div class="feature-content">
+            <h3>Живые уроки с ИИ</h3>
+            <p>Наши онлайн-классы объединяют студентов и менторов в реальном времени. Задавайте вопросы и получайте ответы сразу.</p>
+            <p>Небольшие группы и инструменты ИИ (ChatGPT, Codeium) делают обучение персонализированным и удобным.</p>
+          </div>
+          <div class="feature-image">
+            <div class="feature-box">
+              <img src="/api/placeholder/500/375" alt="Онлайн-класс с ИИ">
+            </div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-content">
+            <h3>Практические проекты</h3>
+            <p>Создавай сайты, боты и приложения, которые станут твоим портфолио. Каждый проект приближает тебя к заказам.</p>
+            <p>Практика показывает, как применять ИИ для ускорения работы и решения реальных задач.</p>
+          </div>
+          <div class="feature-image">
+            <div class="feature-box circle">
+              <img src="/api/placeholder/400/400" alt="Создание проекта с ИИ">
+            </div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-content">
+            <h3>Поддержка до заказа</h3>
+            <p>Мы не просто учим — мы помогаем найти первый заказ на Upwork или Kwork и даем гарантию возврата.</p>
+            <p>Регулярная обратная связь и менторство адаптируют курс под твой темп и цели.</p>
+          </div>
+          <div class="feature-image">
+            <div class="feature-box hexagon">
+              <img src="/api/placeholder/500/375" alt="Поддержка фрилансера">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>Истории успеха</h2>
+        <p>Что говорят наши студенты</p>
+      </div>
+      <div class="testimonials-slider">
+        <div class="slider-wrapper">
+          <div class="slides">
+            <div class="slide">
+              <div class="testimonial-card">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <p class="testimonial-text">Я боялся кода, но за две недели создал сайт с помощью ИИ! Теперь беру заказы на Kwork.</p>
+                <div class="testimonial-author">
+                  <div class="author-image">
+                    <img src="/api/placeholder/60/60" alt="Отзыв Айбека">
+                  </div>
+                  <div class="author-info">
+                    <h4>Айбек</h4>
+                    <p>Студент, 22 года</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <div class="testimonial-card">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <p class="testimonial-text">Курс помог мне сделать приложение за месяц! Менторы подсказали, как взять первый заказ на $100.</p>
+                <div class="testimonial-author">
+                  <div class="author-image">
+                    <img src="/api/placeholder/60/60" alt="Отзыв Дины">
+                  </div>
+                  <div class="author-info">
+                    <h4>Дина</h4>
+                    <p>Студентка, 28 лет</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <div class="testimonial-card">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <p class="testimonial-text">ИИ — это магия! Научился парсить данные и автоматизировать задачи. Курс стоит каждого тенге!</p>
+                <div class="testimonial-author">
+                  <div class="author-image">
+                    <img src="/api/placeholder/60/60" alt="Отзыв Нурлана">
+                  </div>
+                  <div class="author-info">
+                    <h4>Нурлан</h4>
+                    <p>Студент, 19 лет</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-button prev"><i class="fas fa-arrow-left"></i></button>
+          <button class="slider-button next"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Доступные тарифы</h2>
+        <p>Выбери план для старта во фрилансе</p>
+      </div>
+      <div class="pricing-options">
+        <div class="pricing-card">
+          <span class="price-category">Новичок</span>
+          <div class="price">10 000 ₸</div>
+          <span class="price-period">за месяц</span>
+          <ul class="price-features">
+            <li>1 занятие в неделю</li>
+            <li>Доступ к базовому курсу</li>
+            <li>Простые проекты</li>
+            <li>Поддержка по email</li>
+            <li>Отчет раз в месяц</li>
+          </ul>
+          <button class="pricing-button">Начать</button>
+        </div>
+        <div class="pricing-card featured">
+          <span class="price-category">Профи</span>
+          <div class="price">20 000 ₸</div>
+          <span class="price-period">за месяц</span>
+          <ul class="price-features">
+            <li>2 занятия в неделю</li>
+            <li>Доступ ко всем урокам</li>
+            <li>Сложные проекты</li>
+            <li>Приоритетная поддержка</li>
+            <li>Еженедельные отчеты</li>
+            <li>1 консультация в месяц</li>
+          </ul>
+          <button class="pricing-button">Начать</button>
+        </div>
+        <div class="pricing-card">
+          <span class="price-category">Мастер</span>
+          <div class="price">30 000 ₸</div>
+          <span class="price-period">за месяц</span>
+          <ul class="price-features">
+            <li>3 занятия в неделю</li>
+            <li>Доступ ко всем урокам</li>
+            <li>Все проекты</li>
+            <li>Поддержка 24/7</li>
+            <li>Еженедельная обратная связь</li>
+            <li>Еженедельные консультации</li>
+            <li>Помощь с Upwork</li>
+          </ul>
+          <button class="pricing-button">Начать</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Свяжитесь с нами</h2>
+        <p>Есть вопросы? Мы готовы помочь!</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Мы хотим услышать вас</h3>
+          <p>Хотите узнать больше о курсе или получить консультацию? Наша команда ответит на любые вопросы!</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <p>info@itfreelance.kz</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div>
+                <p>+7 (702) 123-4567</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <p>Онлайн-курсы по всему Казахстану</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form>
+            <div class="form-group">
+              <label for="name">Ваше имя</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Тема</label>
+              <input type="text" id="subject" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Сообщение</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="#" class="footer-logo">
+            <div class="logo-icon"><i class="fas fa-code"></i></div>
+            <h3>IT Freelance KZ</h3>
+          </a>
+          <p class="footer-text">Помогаем новичкам из Казахстана стать фрилансерами с помощью ИИ, создавая проекты и зарабатывая на Upwork.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-vk"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Курс</h4>
+          <ul class="footer-menu">
+            <li><a href="#">Python + ИИ</a></li>
+            <li><a href="#">Веб-разработка</a></li>
+            <li><a href="#">Мобильные приложения</a></li>
+            <li><a href="#">Фриланс</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>О нас</h4>
+          <ul class="footer-menu">
+            <li><a href="#">Наша миссия</a></li>
+            <li><a href="#">Команда</a></li>
+            <li><a href="#">Отзывы</a></li>
+            <li><a href="#">Блог</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Поддержка</h4>
+          <ul class="footer-menu">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Контакты</a></li>
+            <li><a href="#">Политика</a></li>
+            <li><a href="#">Условия</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 IT Freelance KZ. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Three.js Background
+    const initThreeBackground = () => {
+      const container = document.getElementById('canvas-container');
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 5;
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      // Create particles
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particlesCount = 1000;
+
+      const posArray = new Float32Array(particlesCount * 3);
+
+      for(let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 15;
+      }
+
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+      const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.02,
+        color: 0x4ECDC4,
+        transparent: true,
+        opacity: 0.8
+      });
+
+      const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particleMesh);
+
+      // Animation
+      const animate = () => {
+        requestAnimationFrame(animate);
+        particleMesh.rotation.x += 0.0005;
+        particleMesh.rotation.y += 0.0005;
+        renderer.render(scene, camera);
+      };
+
+      animate();
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    };
+
+    // Header scroll effect
+    const initHeaderScroll = () => {
+      const header = document.querySelector('header');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    };
+
+    // Testimonials slider
+    const initTestimonialsSlider = () => {
+      const slides = document.querySelector('.slides');
+      const slideItems = document.querySelectorAll('.slide');
+      const prevButton = document.querySelector('.slider-button.prev');
+      const nextButton = document.querySelector('.slider-button.next');
+
+      let currentSlide = 0;
+      const totalSlides = slideItems.length;
+
+      const updateSlider = () => {
+        slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+      };
+
+      prevButton.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlider();
+      });
+
+      nextButton.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlider();
+      });
+
+      // Auto slide
+      setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlider();
+      }, 5000);
+    };
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      initThreeBackground();
+      initHeaderScroll();
+      initTestimonialsSlider();
+    });
+  </script>
 </body>
 </html>
