@@ -1,96 +1,27 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Крестики-Нолики (Firebase)</title>
-  <style>
-    #board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-template-rows: repeat(3, 100px);
-      gap: 5px;
-      margin-top: 20px;
-    }
-    .cell {
-      border: 1px solid black;
-      font-size: 40px;
-      text-align: center;
-      line-height: 100px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tic Tac Toe Multiplayer</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin: 0; padding: 0; background: #f2f2f2; }
+        h1 { margin-top: 20px; }
+        #board { display: grid; grid-template-columns: repeat(3, 100px); margin: 20px auto; gap: 5px; }
+        .cell { width: 100px; height: 100px; font-size: 2em; background: white; border: 2px solid #333; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+    </style>
 </head>
 <body>
-  <h1>Крестики-Нолики Онлайн</h1>
-  <input type="text" id="gameId" placeholder="ID игры" />
-  <button onclick="joinGame()">Присоединиться</button>
-  <div id="board"></div>
-
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-  apiKey: "AIzaSyCtau2mrriZk65wi9F6cKo45YpirhWQ2H0",
-  authDomain: "tic-tac-toe-firebase-ad48c.firebaseapp.com",
-  databaseURL: "https://tic-tac-toe-firebase-ad48c-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tic-tac-toe-firebase-ad48c",
-  storageBucket: "tic-tac-toe-firebase-ad48c.firebasestorage.app",
-  messagingSenderId: "633041662557",
-  appId: "1:633041662557:web:ab29b3aaa085d54cf253b4"
-};
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    let gameRef;
-    let playerSymbol = "X";
-
-    const boardDiv = document.getElementById("board");
-    const cells = [];
-    for (let i = 0; i < 9; i++) {
-      const cell = document.createElement("div");
-      cell.className = "cell";
-      cell.dataset.index = i;
-      cell.addEventListener("click", () => makeMove(i));
-      boardDiv.appendChild(cell);
-      cells.push(cell);
-    }
-
-    function joinGame() {
-      const gameId = document.getElementById("gameId").value;
-      gameRef = db.ref("games/" + gameId);
-
-      gameRef.once("value", snapshot => {
-        if (!snapshot.exists()) {
-          gameRef.set({
-            board: Array(9).fill(""),
-            currentTurn: "X"
-          });
-        }
-      });
-
-      gameRef.on("value", snapshot => {
-        const data = snapshot.val();
-        if (!data) return;
-        data.board.forEach((val, i) => {
-          cells[i].textContent = val;
-        });
-        playerSymbol = data.currentTurn === "X" ? "X" : "O";
-      });
-    }
-
-    function makeMove(index) {
-      gameRef.once("value").then(snapshot => {
-        const data = snapshot.val();
-        if (!data || data.board[index] !== "") return;
-
-        if (data.currentTurn === playerSymbol) {
-          data.board[index] = playerSymbol;
-          data.currentTurn = playerSymbol === "X" ? "O" : "X";
-          gameRef.set(data);
-        }
-      });
-    }
-  </script>
+    <h1>Tic Tac Toe Multiplayer</h1>
+    <button onclick="createGame()">Создать игру</button>
+    <input type="text" id="roomInput" placeholder="Код комнаты">
+    <button onclick="joinGame()">Присоединиться</button>
+    <div id="info"></div>
+    <div id="board"></div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
